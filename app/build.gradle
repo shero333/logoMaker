@@ -1,0 +1,162 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'applovin-quality-service'
+    id 'com.google.firebase.crashlytics'
+}
+
+applovin{
+    apiKey = "ts28WkqaW5aJ1oe_HZ8-b1loX6V8TRpgT08VNE-3AQ86oG76rhLnOLJq935fzZk4-Ldhonuhf0uZPATm2qpSuN"
+}
+
+android {
+    namespace 'com.esport.logo.maker.unlimited'
+    compileSdk 34
+
+    signingConfigs {
+        release {
+            storeFile file('D:\\assets\\TheLogoMaker\\jks\\theLogoMakerKeyStore.jks')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+        debug {
+            storeFile file('D:\\assets\\TheLogoMaker\\jks\\theLogoMakerKeyStore.jks')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+    }
+
+    packagingOptions{
+        exclude 'AndroidManifest.xml'
+        exclude 'lib/arm64-v8a/libcardioDecider.so'
+        exclude 'lib/arm64-v8a/libcardioRecognizer.so'
+        exclude 'lib/arm64-v8a/libcardioRecognizer_tegra2.so'
+        exclude 'lib/arm64-v8a/libopencv_core.so'
+        exclude 'lib/arm64-v8a/libopencv_imgproc.so'
+        exclude 'lib/armeabi/libcardioDecider.so'
+        exclude 'lib/armeabi-v7a/libcardioDecider.so'
+        exclude 'lib/armeabi-v7a/libcardioRecognizer.so'
+        exclude 'lib/armeabi-v7a/libcardioRecognizer_tegra2.so'
+        exclude 'lib/armeabi-v7a/libopencv_core.so'
+        exclude 'lib/armeabi-v7a/libopencv_imgproc.so'
+        exclude 'lib/mips/libcardioDecider.so'
+        exclude 'lib/x86/libcardioDecider.so'
+        exclude 'lib/x86/libcardioRecognizer.so'
+        exclude 'lib/x86/libcardioRecognizer_tegra2.so'
+        exclude 'lib/x86/libopencv_core.so'
+        exclude 'lib/x86/libopencv_imgproc.so'
+        exclude 'lib/x86_64/libcardioDecider.so'
+        exclude 'lib/x86_64/libcardioRecognizer.so'
+        exclude 'lib/x86_64/libcardioRecognizer_tegra2.so'
+        exclude 'lib/x86_64/libopencv_core.so'
+        exclude 'lib/x86_64/libopencv_imgproc.so'
+    }
+
+    defaultConfig {
+        applicationId "com.esport.logo.maker.unlimited"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    //shrinking apk size
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //project dependencies
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    //Splash
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+    //preferences dependency
+    implementation "androidx.preference:preference-ktx:1.2.1"
+    //burhan rashid photo editing library
+    implementation 'com.burhanrashid52:photoeditor:3.0.1'
+    //Hilt dependencies
+    implementation 'com.google.dagger:hilt-android:2.44.2'
+    implementation 'androidx.hilt:hilt-common:1.0.0'
+    kapt 'com.google.dagger:hilt-compiler:2.44.2'
+    //Coroutines Dependencies
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    //Coroutines Lifecycle Dependencies
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    kapt "androidx.lifecycle:lifecycle-compiler:2.6.1"
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    kapt 'com.github.bumptech.glide:compiler:4.14.2'
+    //lottie animation
+    implementation 'com.airbnb.android:lottie:5.2.0'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    //sticker dependency
+    implementation 'androidx.annotation:annotation:1.0.0'
+    //photo view for zoom
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.github.ome450901:SimpleRatingBar:1.5.1'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
+    //Ads dependencies
+    implementation 'com.google.android.gms:play-services-ads:22.4.0'
+    implementation 'com.applovin:applovin-sdk:11.11.3'
+    implementation 'androidx.annotation:annotation:1.7.0'
+    implementation project(':nativetemplates')
+    //Remote Config FB
+    implementation 'com.google.firebase:firebase-config:21.5.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
+    //firebase notifications
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.3.1'
+}

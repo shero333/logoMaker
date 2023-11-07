@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">Esports Logo Maker</string>
+    <string name="agree_amp_continue"><![CDATA[AGREE & CONTINUE]]></string>
+    <string name="privacy_policy">PRIVACY POLICY</string>
+    <string name="create_and_design_all_your_desire_esports_logos_with_this_amazing_app_and_also_use_pre_defined_template">Create and design all your desire esports logos with this amazing app and also Use pre-defined template</string>
+    <string name="by_using_this_app_you_agree_the">By using this app, you agree the</string>
+    <string name="privacy_policy_link">Privacy policy</string>
+    <string name="permissions">Permissions</string>
+    <string name="app_need_to_access_to_your_camera_storage_microphone_and_location">App need to access to your camera, storage, microphone and location</string>
+    <string name="continue_">Continue</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="boarding1_string">Design your esports logo by selecting different graphics or import designs of your choice</string>
+    <string name="boarding2_string">Add text and color with amazing styles and fonts to dominate your logo and manage your text with control featues</string>
+    <string name="boarding3_string">Add unique texture and effects to your design for more attraction</string>
+    <string name="boarding4_string">Manage your additions with our amazing control features</string>
+    <string name="boarding5_string">Use pre-define template graphics for your logos</string>
+    <string name="skip">Skip</string>
+    <string name="my_work">My work</string>
+    <string name="preview">Preview</string>
+    <string name="recents">Recents</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="_23_08_2023">23/08/2023</string>
+    <string name="are_your_sure_you_want_to_delete">Are your sure you want to delete?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_create_or_edit_template">CreateOrEditTemplateActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_background">Background</string>
+    <string name="title_text">Text</string>
+    <string name="title_image">Image</string>
+    <string name="title_effects">Effects</string>
+    <string name="title_logo">Logo</string>
+    <string name="gradient">Gradient</string>
+    <string name="shapes">Shapes</string>
+    <string name="color">Color</string>
+    <string name="texture">Texture</string>
+    <string name="graphics">Graphics</string>
+    <string name="linear">Linear</string>
+    <string name="radical">Radical</string>
+    <string name="angular">Angular</string>
+    <string name="color_2">Color 2</string>
+    <string name="color_1">Color 1</string>
+    <string name="title_elements">Elements</string>
+    <string name="edit">Edit</string>
+    <string name="world">World</string>
+    <string name="allow_gallery_permission">Allow Gallery Permission?</string>
+    <string name="camera_permission_has_been_denied_previously_nto_allow_camera_permission_follow_the_steps">Camera permission has been denied previously.\nTo allow camera permission, follow the steps:</string>
+    <string name="_1_in_moneymanager_click_permissions">1. In MoneyManager click \'Permissions\'</string>
+    <string name="_2_click_on_gallery_permission">2. Click on Gallery permission</string>
+    <string name="_3_select_allow">3. Select \'Allow\'</string>
+    <string name="go_to_settings">Open Settings</string>
+
+    <string name="crop_image_activity_title"></string>
+    <string name="crop_image_menu_rotate_left">Rotate counter clockwise</string>
+    <string name="crop_image_menu_rotate_right">Rotate</string>
+    <string name="crop_image_menu_crop">Crop</string>
+    <string name="crop_image_menu_flip">Flip</string>
+    <string name="crop_image_menu_flip_horizontally">Flip horizontally</string>
+    <string name="crop_image_menu_flip_vertically">Flip vertically</string>
+
+    <string name="pick_image_intent_chooser_title">Select source</string>
+
+    <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
+    <string name="are_your_sure_you_want_to_leave_this_page">Are your sure you want to leave this page?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="enter_sticker_text">Enter sticker text...</string>
+    <string name="let_us_know_how_we_are_doing">Let us know how we are doing?</string>
+    <string name="esport_logo_maker">ESPORT LOGO MAKER</string>
+    <string name="back">Back</string>
+    <string name="submit">Submit</string>
+    <string name="exit">Exit</string>
+    <string name="join_our_pro_family_get_access_to_incredible_features"><![CDATA[Join our PRO family & get access to incredible features]]></string>
+    <string name="save_40">SAVE 40%</string>
+    <string name="life_time">Life Time</string>
+
+    <!--Ad Ids {AppLovin}-->
+    <string name="nativeAd">4b4b2e5a3bffb7e0</string>
+    <string name="interstitialAd">58c55058bfe22edd</string>
+    <string name="bannerAd">ab1b8354dfb38795</string>
+    <string name="reportKey">EMMzsZR-UdMu9G4R8t0EDvBLVmS_n8d7zSfw3QkbE34QhT3zUK719ZqJ272ZlqZmpTIaxOi8H5TfLQk9IrPTGT</string>
+    <string name="sdkKey">uxqyaJRMdttBJC0Ik5VckaGOcJQnhXC90DTlxBBfkW7uyA57d3arHddg1FK_Dt5GBu8TJMuBa7H3-tTTgkEf0h</string>
+
+
+    <string name="advertiser_textview">advertiser_textView</string>
+    <string name="body_text_view">body_text_view</string>
+    <string name="install">Install</string>
+    <string name="ad_options_view">Options</string>
+
+    <!--list of tabs-->
+    <string-array name="tabs_list">
+        <item>Graphics</item>
+        <item>Texture</item>
+        <item>Color</item>
+        <item>Shapes</item>
+        <item>Gradient</item>
+    </string-array>
+</resources>

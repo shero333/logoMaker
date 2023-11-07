@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".permissions.PermissionsActivity">
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Mediation Banner Applovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner2"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/policy_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user_permission_icon" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/logo_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/font_text"
+            android:gravity="center"
+            android:text="@string/permissions"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/logo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/font_text"
+            android:gravity="center"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="@string/app_need_to_access_to_your_camera_storage_microphone_and_location"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/continue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/font_text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/continue_"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--Mediation Banner AppLovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner1"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner1"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

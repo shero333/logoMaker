@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    android:gravity="center_horizontal">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card1"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="-10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1">
+        
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/premium_life_time"
+            android:scaleType="centerCrop"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/percentage_save"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save_40"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                app:fontFamily="@font/font_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/selection_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/premium_select_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/card_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/life_time"
+                android:textColor="#FFC700"
+                android:textSize="20sp"
+                app:fontFamily="@font/font_text"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/percentage_save" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/card_Amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 455555"
+            android:textColor="#FFC700"
+            android:textSize="15sp"
+            app:fontFamily="@font/font_text"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_heading"
+            app:layout_constraintStart_toStartOf="@+id/card_heading"
+            app:layout_constraintTop_toBottomOf="@+id/card_heading" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/discount_Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs. 455555"
+                android:textColor="@color/Red"
+                android:textSize="11sp"
+                app:fontFamily="@font/font_text"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/card_Amount"
+                app:layout_constraintStart_toStartOf="@+id/card_Amount"
+                app:layout_constraintTop_toBottomOf="@+id/card_Amount" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card2"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="-10dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/premium_regular"
+            android:scaleType="centerCrop"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/percentage_save2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save_40"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                app:fontFamily="@font/font_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/selection_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/premium_select_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/card_heading2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/life_time"
+                android:textColor="#FFC700"
+                android:textSize="20sp"
+                app:fontFamily="@font/font_text"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/percentage_save2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/card_Amount2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 455555"
+            android:textColor="#FFC700"
+            android:textSize="15sp"
+            app:fontFamily="@font/font_text"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_heading2"
+            app:layout_constraintStart_toStartOf="@+id/card_heading2"
+            app:layout_constraintTop_toBottomOf="@+id/card_heading2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/discount_Amount2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs. 455555"
+                android:textColor="@color/Red"
+                android:textSize="11sp"
+                app:fontFamily="@font/font_text"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/card_Amount2"
+                app:layout_constraintStart_toStartOf="@+id/card_Amount2"
+                app:layout_constraintTop_toBottomOf="@+id/card_Amount2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

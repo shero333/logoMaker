@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".main.ActivityMain">
+
+    <!--background image of main screen-->
+
+    <!--main views of main screen-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.25"
+        android:src="@drawable/splash_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/logo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_margin="30dp"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner2" />
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_text" />
+    <!--Mediation Banner Applovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner2"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/create_button"
+                android:layout_width="270dp"
+                android:layout_height="155dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_margin="8dp"
+                android:foreground="@drawable/transparent_ripple_background"
+                android:src="@drawable/create_logo_icon"
+                tools:targetApi="m" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ads_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
+
+                <com.google.android.ads.nativetemplates.TemplateView
+                    android:id="@+id/ad_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:gnt_template_type="@layout/gnt_medium_template_view"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <FrameLayout
+                    android:id="@+id/appLovin_nativeAd_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/ad_template"
+                    app:layout_constraintEnd_toEndOf="@+id/ad_template"
+                    app:layout_constraintStart_toStartOf="@+id/ad_template"
+                    app:layout_constraintTop_toTopOf="@+id/ad_template" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/templates_button"
+                android:layout_width="270dp"
+                android:layout_height="155dp"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/transparent_ripple_background"
+                android:src="@drawable/templates_logo_icon"
+                tools:targetApi="m" />
+
+            <!--resents-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/heading_list_recent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/recents"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="textStart"
+                android:visibility="gone" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/recents_list_card"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:visibility="gone"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/heading_list_recent"
+                app:strokeColor="#F90716"
+                app:strokeWidth="0.8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recents_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/recent_images_itemview" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!--Exit fragment container-->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment_exit_activity_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--Mediation Banner Google-->
+    <FrameLayout
+        android:id="@+id/applovinAdView1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner1"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner1"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

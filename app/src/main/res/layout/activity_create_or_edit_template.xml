@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <!--Fragment top view-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fragment_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20.5dp"
+        android:src="@drawable/fragment_top_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Toolbar view-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:foreground="@drawable/transparent_ripple_background_round"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="@+id/fragment_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/fragment_toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_toolbar"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/logo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:padding="5dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="@+id/back_button"
+        app:layout_constraintBottom_toBottomOf="@+id/back_button" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/download_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:foreground="@drawable/transparent_ripple_background_round"
+        android:scaleType="centerCrop"
+        android:src="@drawable/download_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/fragment_toolbar" />
+
+    <!--forward backward button-->
+    <LinearLayout
+        android:id="@+id/forward_backward_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/download_button"
+        app:layout_constraintTop_toTopOf="@+id/fragment_toolbar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/undo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/transparent_ripple_background_round"
+            android:scaleType="centerCrop"
+            android:src="@drawable/backward_button"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/redo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/transparent_ripple_background_round"
+            android:scaleType="centerCrop"
+            android:src="@drawable/forward_button"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+    <!--Text Sticker view-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/save_text_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/transparent_ripple_background_round"
+        android:scaleType="centerCrop"
+        android:src="@drawable/save_button"
+        android:visibility="gone"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/fragment_toolbar" />
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_toolbar" />
+    <!--Mediation Banner Applovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner2"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
+
+        <com.xiaopo.flying.sticker.StickerView
+            android:id="@+id/sticker_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:showBorder="true"
+            app:showIcons="true"
+            android:background="@drawable/transparent_image"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toTopOf="@+id/container_fragment_activity_create_or_edit_template"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2">
+
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/imageFromBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.xiaopo.flying.sticker.StickerView>
+
+    <!--color picker image button-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/color_picker_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:focusable="true"
+        android:foreground="@drawable/transparent_ripple_background_round"
+        android:scaleType="centerCrop"
+        android:src="@drawable/color_picker_button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/container_fragment_activity_create_or_edit_template"
+        app:layout_constraintEnd_toEndOf="@+id/container_fragment_activity_create_or_edit_template" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_main">
+
+        <!--Background button-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/background_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:targetApi="m">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/background_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:focusable="true"
+                android:src="@drawable/background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/background_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/title_background"
+                android:textColor="@drawable/color_nav"
+                android:textSize="10.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/background_icon"
+                app:layout_constraintStart_toStartOf="@+id/background_icon"
+                app:layout_constraintTop_toBottomOf="@+id/background_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Text button-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/text_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/text_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:focusable="true"
+                android:src="@drawable/text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/title_text"
+                android:textColor="@drawable/color_nav"
+                android:textSize="10.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/text_icon"
+                app:layout_constraintStart_toStartOf="@+id/text_icon"
+                app:layout_constraintTop_toBottomOf="@+id/text_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Image button-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:focusable="true"
+                android:src="@drawable/image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/image_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/title_image"
+                android:textColor="@drawable/color_nav"
+                android:textSize="10.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/image_icon"
+                app:layout_constraintStart_toStartOf="@+id/image_icon"
+                app:layout_constraintTop_toBottomOf="@+id/image_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Effects button-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/effects_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/effects_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:focusable="true"
+                android:src="@drawable/effects"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/effects_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/title_effects"
+                android:textColor="@drawable/color_nav"
+                android:textSize="10.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/effects_icon"
+                app:layout_constraintStart_toStartOf="@+id/effects_icon"
+                app:layout_constraintTop_toBottomOf="@+id/effects_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Logo button-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logo_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:focusable="true"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/logo_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/title_logo"
+                android:textColor="@drawable/color_nav"
+                android:textSize="10.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/logo_icon"
+                app:layout_constraintStart_toStartOf="@+id/logo_icon"
+                app:layout_constraintTop_toBottomOf="@+id/logo_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Elements button-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/elements_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/elements_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:focusable="true"
+                android:src="@drawable/elements"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/elements_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/title_elements"
+                android:textColor="@drawable/color_nav"
+                android:textSize="10.5sp"
+                app:layout_constraintEnd_toEndOf="@+id/elements_icon"
+                app:layout_constraintStart_toStartOf="@+id/elements_icon"
+                app:layout_constraintTop_toBottomOf="@+id/elements_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/view_main"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/theme_color"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_fragment_activity_create_or_edit_template" />
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--Mediation Banner AppLovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner1"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner1"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner1" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment_activity_create_or_edit_template"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_170sdp"
+        app:layout_constraintBottom_toTopOf="@id/view_main"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sticker_view" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/stickerText_edt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/backgroud_text"
+        android:gravity="center"
+        android:hint="@string/enter_sticker_text"
+        android:inputType="textMultiLine|textCapSentences"
+        android:lines="10"
+        android:textColor="@color/white"
+        android:textCursorDrawable="@drawable/cursor_orange"
+        android:textSize="34sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/view_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_toolbar" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

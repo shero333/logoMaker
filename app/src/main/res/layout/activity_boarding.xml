@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_boarding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".one_time_screens.on_boarding.OnBoardingActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toTopOf="@+id/skip_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Mediation Banner Applovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner2"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
+
+    <LinearLayout
+        android:id="@+id/layout_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_margin="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/continue_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/continue_button"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/font_text"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/continue_"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--Mediation Banner AppLovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner1"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner1"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner1" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:background="@drawable/button_background_grey"
+        android:fontFamily="@font/font_text"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:text="@string/skip"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

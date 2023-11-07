@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    tools:context=".main.edit_create_logo.features.background.BackgroundFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--items to apply on image-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_edit_options"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/list_logos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/theme_color"
+            app:strokeWidth="0.5dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:spanCount="2"
+                tools:itemCount="15"
+                tools:listitem="@layout/tabs_list_itemview" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--list of images to edit-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_logos"
+            android:layout_width="0dp"
+            android:layout_height="166.5dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="invisible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/card_edit_options"
+            app:layout_constraintStart_toStartOf="@+id/card_edit_options"
+            app:layout_constraintTop_toBottomOf="@+id/card_edit_options"
+            app:spanCount="2"
+            tools:itemCount="15"
+            tools:listitem="@layout/background_image_list_itemview" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/no_data_available"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/no_data_available"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/list_logos"
+            app:layout_constraintEnd_toEndOf="@+id/list_logos"
+            app:layout_constraintStart_toStartOf="@+id/list_logos"
+            app:layout_constraintTop_toBottomOf="@+id/card_edit_options" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress_bar_anim"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loader_placeholder"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/list_logos"
+            app:layout_constraintEnd_toEndOf="@+id/list_logos"
+            app:layout_constraintStart_toStartOf="@+id/list_logos"
+            app:layout_constraintTop_toTopOf="@+id/list_logos"/>
+
+        <!--linear progress bar opacity-->
+        <SeekBar
+            android:id="@+id/opacity_progress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/custom_seekbar"
+            android:thumb="@drawable/seekbar_thumb_icon"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/card_edit_options"
+            app:layout_constraintStart_toEndOf="@+id/opacity_icon"
+            app:layout_constraintTop_toBottomOf="@+id/card_edit_options" />
+
+        <!--Fragment top view-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/opacity_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/opacity_icon"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/opacity_progress"
+            app:layout_constraintEnd_toStartOf="@+id/opacity_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/opacity_progress" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/colorListRecyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/opacity_progress"
+            app:spanCount="5"
+            tools:itemCount="140"
+            tools:listitem="@layout/colorlist_itemview" />
+
+        <include
+            android:id="@+id/gradient_bottomview"
+            layout="@layout/gradient_bottom_viewlayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/opacity_progress" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

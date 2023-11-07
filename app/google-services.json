@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "308936563820",
+    "project_id": "logo-esport-maker-320e8",
+    "storage_bucket": "logo-esport-maker-320e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308936563820:android:e37b475e51425905b40c49",
+        "android_client_info": {
+          "package_name": "com.esport.logo.maker.unlimited"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAokucbPageHnijSDAXsyomt0oA6FhWxRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

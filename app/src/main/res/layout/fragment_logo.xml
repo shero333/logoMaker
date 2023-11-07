@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".main.edit_create_logo.features.logo.LogoFragment">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@color/theme_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/list_logos_images"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!--list of images to edit-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_logos_images"
+        android:layout_width="0dp"
+        android:layout_height="166.5dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:spanCount="2"
+        tools:itemCount="15"
+        tools:listitem="@layout/background_image_list_itemview" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar_anim"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loader_placeholder"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/list_logos_images"
+        app:layout_constraintEnd_toEndOf="@+id/list_logos_images"
+        app:layout_constraintStart_toStartOf="@+id/list_logos_images"
+        app:layout_constraintTop_toTopOf="@+id/list_logos_images"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

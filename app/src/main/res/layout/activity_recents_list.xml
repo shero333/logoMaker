@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".main.recent_work.RecentListActivity">
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Mediation Banner Applovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner2"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
+
+    <!--background image of main screen-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_button"
+        android:padding="8dp"
+        android:foreground="@drawable/transparent_ripple_background_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/font_text"
+        android:text="@string/my_work"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_button"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="@+id/back_button" />
+
+    <!--list if recent lists-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/heading_list_recent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:text="@string/recents"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/recents_list_card"
+        app:layout_constraintStart_toStartOf="@+id/recents_list_card"
+        app:layout_constraintTop_toBottomOf="@+id/heading"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/recents_list_card"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        app:cardCornerRadius="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading_list_recent"
+        app:strokeColor="#F90716"
+        app:strokeWidth="0.8dp"
+        android:layout_margin="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recents_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/recent_images_itemview" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--list if yesterday lists-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/heading_list_yesterday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:text="@string/yesterday"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/yesterday_list_card"
+        app:layout_constraintStart_toStartOf="@+id/yesterday_list_card"
+        app:layout_constraintTop_toBottomOf="@+id/recents_list_card"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/yesterday_list_card"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        app:cardCornerRadius="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading_list_yesterday"
+        app:strokeColor="#F90716"
+        app:strokeWidth="0.8dp"
+        android:layout_margin="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/yesterday_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/recent_images_itemview" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.25"
+            android:src="@drawable/splash_background" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--list if date lists-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/heading_list_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:text="@string/_23_08_2023"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/yesterday_list_card"
+        app:layout_constraintStart_toStartOf="@+id/yesterday_list_card"
+        app:layout_constraintTop_toBottomOf="@+id/before_yesterday_card"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/before_yesterday_card"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        app:cardCornerRadius="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading_list_date"
+        app:strokeColor="#F90716"
+        app:strokeWidth="0.8dp"
+        android:layout_margin="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/before_yesterday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/recent_images_itemview" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--Ads-->
+    <!--Adaptive Banner Google-->
+    <FrameLayout
+        android:id="@+id/adaptiveBanner1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--Mediation Banner AppLovin-->
+    <FrameLayout
+        android:id="@+id/applovinAdView1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner1"
+        app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner1"
+        app:layout_constraintStart_toStartOf="@+id/adaptiveBanner1"
+        app:layout_constraintTop_toTopOf="@+id/adaptiveBanner1" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment_activity_Recent_Lists"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

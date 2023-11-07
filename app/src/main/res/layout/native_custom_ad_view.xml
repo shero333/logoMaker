@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    app:strokeColor="@color/Yellow"
+    app:strokeWidth="1dp"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:id="@+id/native_applovin_rela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_1sdp"
+        android:paddingLeft="@dimen/_2sdp"
+        android:elevation="@dimen/_5sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingRight="@dimen/_2sdp">
+
+        <LinearLayout
+            android:id="@+id/ad_options_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/_2sdp"
+            android:orientation="horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/rela_top_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/ad_options_view">
+
+            <ImageView
+                android:id="@+id/icon_image_view"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp" />
+
+            <RelativeLayout
+                android:id="@+id/icon_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/icon_image_view"
+                android:paddingLeft="@dimen/_3sdp">
+
+                <TextView
+                    android:id="@+id/title_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:singleLine="true"
+                    android:text="@string/ad_options_view"
+                    android:textColor="@color/theme_color"
+                    android:textSize="@dimen/_10sdp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_text_view"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/ad_notification_view"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bf_ad"
+                        android:gravity="center"
+                        android:text="Ad"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"/>
+
+
+                    <TextView
+                        android:id="@+id/advertiser_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_1sdp"
+                        android:layout_toRightOf="@+id/ad_notification_view"
+                        android:orientation="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/grey_button_color"
+                        android:text="advertiser_textView"
+                        android:textSize="@dimen/_9sdp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/media_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/rela_top_ad"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:id="@+id/body_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/media_view_container"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:maxLength="100"
+            android:orientation="horizontal"
+            android:text="body_text_view"
+            android:textColor="@color/grey_button_color"
+            android:textSize="@dimen/_8sdp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cta_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/native_btn_bg"
+            android:gravity="center"
+            android:text="Install"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_13sdp"
+            android:layout_below="@+id/body_text_view"/>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:visibility="gone"
+    android:id="@+id/gradient_bottomview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/options_gradient_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/linear_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_text"
+                android:text="@string/linear"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_alignParentStart="true"
+                app:buttonTint="@color/theme_color"
+                />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radical_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/font_text"
+                android:text="@string/radical"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_centerInParent="true"
+                app:buttonTint="@color/theme_color"
+                />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/angular_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/font_text"
+                android:text="@string/angular"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_alignParentEnd="true"
+                app:buttonTint="@color/theme_color"
+                />
+        </RelativeLayout>
+    </RadioGroup>
+
+    <!--1st row of colors-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/color1Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:text="@string/color_1"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/color1GradientListRecyclerview"
+        app:layout_constraintEnd_toStartOf="@+id/color1GradientListRecyclerview"
+        app:layout_constraintBottom_toBottomOf="@+id/color1GradientListRecyclerview"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/color1GradientListRecyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/color1Text"
+        app:layout_constraintTop_toBottomOf="@+id/options_gradient_group"
+        app:layout_constraintBottom_toTopOf="@+id/color2GradientListRecyclerview"
+        app:spanCount="2"
+        tools:itemCount="70"
+        tools:listitem="@layout/colorlist1_itemview" />
+
+    <!--2nd row of colors-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/color2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:text="@string/color_2"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/color2GradientListRecyclerview"
+        app:layout_constraintEnd_toStartOf="@+id/color2GradientListRecyclerview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/color2GradientListRecyclerview" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/color2GradientListRecyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/color2Text"
+        app:layout_constraintTop_toBottomOf="@+id/color1GradientListRecyclerview"
+        app:spanCount="2"
+        tools:itemCount="70"
+        tools:listitem="@layout/colorlist2_itemview" />
+</androidx.constraintlayout.widget.ConstraintLayout>

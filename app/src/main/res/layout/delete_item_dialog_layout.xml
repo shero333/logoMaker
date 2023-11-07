@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/black"
+    app:strokeWidth="0dp"
+    android:layout_margin="10dp"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/font_text"
+            android:text="@string/are_your_sure_you_want_to_delete"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/cancel_dialog_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_dialog_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_background_grey"
+            android:fontFamily="@font/font_text"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/delete_dialog_button"
+            app:layout_constraintStart_toStartOf="@+id/heading"
+            app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_dialog_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/font_text"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cancel_dialog_button"
+            app:layout_constraintEnd_toEndOf="@+id/heading"
+            app:layout_constraintStart_toEndOf="@+id/cancel_dialog_button"
+            app:layout_constraintTop_toTopOf="@+id/cancel_dialog_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

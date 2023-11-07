@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:layout_gravity="center"
+    android:elevation="10dp"
+    android:layout_margin="10dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/exit_dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text"
+        android:text="@string/are_your_sure_you_want_to_leave_this_page"
+        android:textColor="@drawable/color_nav"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:layout_margin="20dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttons_layout"
+        app:layout_constraintStart_toStartOf="@+id/buttons_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttons_layout"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/buttons_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exit_dialog_message"
+        android:layout_margin="30dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/exit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/font_text"
+            android:text="@string/yes"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_marginEnd="35dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/font_text"
+            android:text="@string/no"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_marginStart="35dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
