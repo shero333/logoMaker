@@ -85,8 +85,6 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
         BannerAdAppLovinTop()
         BannerAdAppLovinBottom()
 
-        var skip = binding.skipButton
-
         //top Ad
         when (LogoMakerApp.BOARDING_ACTIVITY_BANNER_TOP) {
             "0" -> {
@@ -95,17 +93,6 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
                 binding.adaptiveBanner2.visibility = View.GONE
                 binding.applovinAdView2.visibility = View.GONE
 
-                // Create layout params for the skip button
-                val layoutParams = skip.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val rightMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                layoutParams.setMargins(0, topMarginInPixels, rightMarginInPixels, 0)
-                layoutParams.setMargins(0, topMarginInPixels, rightMarginInPixels, 0)
-
-                skip.layoutParams = layoutParams
             }
             "1" -> {
 
@@ -119,18 +106,6 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
                 //bottom
                 Banner1Ads()
 
-                // Create layout params for the skip button
-                val layoutParams = skip.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val rightMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginStartDpAd) // Use your margin resource
-                val topMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginTopDpAd)   // Use your margin resource
-
-                layoutParams.setMargins(0, topMarginInPixels, rightMarginInPixels, 0)
-
-                layoutParams.setMargins(0, topMarginInPixels, rightMarginInPixels, 0)
-
-                skip.layoutParams = layoutParams
             }
             "2" -> {
 
@@ -140,18 +115,6 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
 
                 adViewTop.loadAd()
 
-                // Create layout params for the skip button
-                val layoutParams = skip.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val rightMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginStartDpAd) // Use your margin resource
-                val topMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginTopDpAd)   // Use your margin resource
-
-                layoutParams.setMargins(0, topMarginInPixels, rightMarginInPixels, 0)
-
-                layoutParams.setMargins(0, topMarginInPixels, rightMarginInPixels, 0)
-
-                skip.layoutParams = layoutParams
             }
         }
 
@@ -374,11 +337,8 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
     override fun onAdLoadFailed(p0: String?, p1: MaxError?) {}
     override fun onAdDisplayFailed(p0: MaxAd?, p1: MaxError?) {}
     override fun onAdExpanded(p0: MaxAd?) {
-        TODO("Not yet implemented")
     }
-
     override fun onAdCollapsed(p0: MaxAd?) {
-        TODO("Not yet implemented")
     }
 
     //Ads

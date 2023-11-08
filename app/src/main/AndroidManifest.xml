@@ -43,6 +43,11 @@
             tools:ignore="LockedOrientationActivity"/>
 
         <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:theme="@style/AdTheme"
+            tools:replace="android:theme"/>
+
+        <activity
             android:name=".premium.PremiumActivity"
             android:exported="false"
             android:screenOrientation="portrait"
