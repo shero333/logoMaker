@@ -253,10 +253,11 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         //redo button click
         binding.redoButton.setOnClickListener {
 
-            //updating index
-            undoRedoTraversal++
 
-            if (undoRedoTraversal >= 0 && undoRedoTraversal <= viewModelMain.undoRedoArray.lastIndex){
+            if (undoRedoTraversal < viewModelMain.undoRedoArray.lastIndex){
+
+                //updating index
+                undoRedoTraversal++
 
                 //restore the previous state of the stickers
                 if(viewModelMain.undoRedoArray[undoRedoTraversal].background != null){
@@ -312,10 +313,10 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         binding.undoButton.setOnClickListener {
 
             //updating index
-            undoRedoTraversal--
 
-            if (undoRedoTraversal >= 0 && undoRedoTraversal <= viewModelMain.undoRedoArray.lastIndex){
 
+            if (undoRedoTraversal > 0){
+                undoRedoTraversal--
                 //restore the previous state of the stickers
                 if(viewModelMain.undoRedoArray[undoRedoTraversal].background != null){
 
