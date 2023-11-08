@@ -80,8 +80,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
         BannerAdAppLovinTop()
         BannerAdAppLovinBottom()
 
-        var backButton = binding.backButton
-
         //top Ad
         when (LogoMakerApp.PREVIEW_ACTIVITY_BANNER_TOP) {
             "0" -> {
@@ -89,17 +87,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
                 //no ad will be loaded
                 binding.adaptiveBanner2.visibility = View.GONE
                 binding.applovinAdView2.visibility = View.GONE
-
-                // Create layout params for the skip button
-                val layoutParams = backButton.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val leftMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                layoutParams.setMargins(leftMarginInPixels, topMarginInPixels, 0, 0)
-
-                backButton.layoutParams = layoutParams
 
             }
             "1" -> {
@@ -114,17 +101,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
                 //top
                 Banner2Ads()
 
-                // Create layout params for the skip button
-                val layoutParams = backButton.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val leftMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginStartDpAd) // Use your margin resource
-                val topMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginTopDpAd)   // Use your margin resource
-
-                layoutParams.setMargins(leftMarginInPixels, topMarginInPixels, 0, 0)
-
-                backButton.layoutParams = layoutParams
-
             }
             "2" -> {
 
@@ -133,17 +109,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
                 binding.applovinAdView2.visibility = View.VISIBLE
 
                 adViewTop.loadAd()
-
-                // Create layout params for the skip button
-                val layoutParams = backButton.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val leftMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginStartDpAd) // Use your margin resource
-                val topMarginInPixels = resources.getDimensionPixelSize(R.dimen.marginTopDpAd)   // Use your margin resource
-
-                layoutParams.setMargins(leftMarginInPixels, topMarginInPixels, 0, 0)
-
-                backButton.layoutParams = layoutParams
             }
         }
 

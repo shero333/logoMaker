@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".main.recent_work.RecentListActivity">
 
     <!--Ads-->
@@ -15,7 +16,6 @@
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="18dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,29 +33,39 @@
         app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
 
     <!--background image of main screen-->
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/back_button"
-        android:padding="8dp"
-        android:foreground="@drawable/transparent_ripple_background_round"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/back_button_layout"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:gravity="center|start"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2"/>
+        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintBottom_toTopOf="@+id/heading_list_recent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/font_text"
-        android:text="@string/my_work"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/back_button"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
-        app:layout_constraintTop_toTopOf="@+id/back_button" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/transparent_ripple_background_round"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/back_button"
+            android:layout_marginStart="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_text"
+            android:gravity="center"
+            android:text="@string/my_work"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <!--list if recent lists-->
     <androidx.appcompat.widget.AppCompatTextView
@@ -66,10 +76,10 @@
         android:text="@string/recents"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/recents_list_card"
         app:layout_constraintStart_toStartOf="@+id/recents_list_card"
-        app:layout_constraintTop_toBottomOf="@+id/heading"/>
+        app:layout_constraintTop_toBottomOf="@+id/back_button_layout"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/recents_list_card"

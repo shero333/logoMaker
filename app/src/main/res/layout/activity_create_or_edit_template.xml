@@ -4,17 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
 
     <!--Fragment top view-->
-    <androidx.appcompat.widget.AppCompatImageView
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_toolbar"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="20.5dp"
-        android:src="@drawable/fragment_top_view"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/fragment_top_view"
+        android:elevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +46,7 @@
         android:textAlignment="center"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:padding="5dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@+id/back_button"
@@ -130,6 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
+        app:layout_constraintBottom_toTopOf="@+id/sticker_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_toolbar" />

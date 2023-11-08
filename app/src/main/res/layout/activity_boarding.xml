@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".one_time_screens.on_boarding.OnBoardingActivity">
 
     <androidx.viewpager.widget.ViewPager
@@ -24,7 +25,6 @@
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="30dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintBottom_toTopOf="@+id/skip_button"
         app:layout_constraintEnd_toEndOf="parent"

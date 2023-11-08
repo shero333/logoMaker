@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".main.recent_work.fragments.PreviewFragment">
 
     <!--Ads-->
@@ -14,7 +15,6 @@
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="25dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,43 +30,57 @@
         app:layout_constraintStart_toStartOf="@+id/adaptiveBanner2"
         app:layout_constraintTop_toTopOf="@+id/adaptiveBanner2" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/back_button"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="8dp"
-        android:foreground="@drawable/transparent_ripple_background_round"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/font_text"
-        android:text="@string/preview"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/back_button"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
-        app:layout_constraintTop_toTopOf="@+id/back_button" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/delete_button"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/transparent_ripple_background"
+    <!--background image of main screen-->
+    <RelativeLayout
+        android:id="@+id/back_button_layout"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adaptiveBanner2"
+        app:layout_constraintBottom_toTopOf="@+id/heading_list_recent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/back_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:foreground="@drawable/transparent_ripple_background_round" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_text"
+            android:text="@string/preview"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/back_button"
+            android:layout_centerVertical="true"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/delete_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:foreground="@drawable/transparent_ripple_background" />
+
+    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logoPreview"
@@ -76,7 +90,7 @@
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/back_button_layout" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"

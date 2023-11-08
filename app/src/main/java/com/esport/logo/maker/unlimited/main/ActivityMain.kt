@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
@@ -55,7 +59,7 @@ import java.lang.reflect.Type
 
 @AndroidEntryPoint
 class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicked, MaxAdListener,
-    MaxAdViewAdListener, MaxAdRevenueListener {
+    MaxAdViewAdListener, MaxAdRevenueListener,LifecycleObserver {
 
     private lateinit var nativeAdContainerView: ViewGroup
     private var nativeAdLoader: MaxNativeAdLoader? = null
@@ -71,6 +75,8 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
     private var itemRecentsClicked = false
     private lateinit var adViewTop: MaxAdView
     private lateinit var adViewBottom: MaxAdView
+    private lateinit var exitFragment:ExitFragment
+    private val MAIL_OR_PLAY_STORE_INTENT_REQ_CODE = 200
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,6 +106,10 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
         //Creating banner for AppLovin
         BannerAdAppLovinTop()
         BannerAdAppLovinBottom()
+
+        //instance to kill and call the fragment from this activity
+        exitFragment = ExitFragment()
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
         //top Ad
         when (LogoMakerApp.MAIN_SCREEN_BANNER_TOP) {
@@ -423,27 +433,10 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.headingListRecent.visibility = View.GONE
 
                 //calling the exit fragment
-                val exitFragment = ExitFragment()
                 MainUtils.replaceFragment(exitFragment, supportFragmentManager, R.id.container_fragment_exit_activity_main)
 
             }
         })
-    }
-
-    private fun getTheListFromRecentInPreference(): ArrayList<SavedLogo> {
-
-        //get the array string from the preference
-        val recentString = SharedPreference.downloadedLogos
-        var savedLogos = ArrayList<SavedLogo>()
-
-        if (recentString!= null && recentString.isNotEmpty()){
-            val typeData: Type = object : TypeToken<ArrayList<SavedLogo>>() {}.type
-
-            savedLogos = Gson().fromJson(recentString, typeData)
-            return savedLogos
-        }
-
-        return savedLogos
     }
 
     @SuppressLint("NewApi")
@@ -669,6 +662,22 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
             bindingMain.recentsListCard.visibility = View.GONE
             bindingMain.headingListRecent.visibility = View.GONE
         }
+    }
+
+    private fun getTheListFromRecentInPreference(): ArrayList<SavedLogo> {
+
+        //get the array string from the preference
+        val recentString = SharedPreference.downloadedLogos
+        var savedLogos = ArrayList<SavedLogo>()
+
+        if (recentString!= null && recentString.isNotEmpty()){
+            val typeData: Type = object : TypeToken<ArrayList<SavedLogo>>() {}.type
+
+            savedLogos = Gson().fromJson(recentString, typeData)
+            return savedLogos
+        }
+
+        return savedLogos
     }
 
     override fun recentItemClicked() {
@@ -917,5 +926,11 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                     super.onNativeAdClicked(p0)
                 }
             })
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun finishExitFragment(){
+        //closing the fragment
+        MainUtils.finishFragment(supportFragmentManager, exitFragment)
     }
 }

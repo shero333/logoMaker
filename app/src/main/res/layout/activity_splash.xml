@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".splash.SplashActivity"
+    android:fitsSystemWindows="true"
     android:background="@color/black">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -24,7 +25,6 @@
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="30dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -103,9 +103,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val backButton = binding.backButton
-        val deleteButton = binding.deleteButton
-
         //top Ad
         when (LogoMakerApp.PREVIEW_ACTIVITY_BANNER_TOP) {
             "0" -> {
@@ -113,23 +110,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
                 //no ad will be loaded
                 binding.adaptiveBanner2.visibility = View.GONE
                 binding.applovinAdView2.visibility = View.GONE
-
-                // Create layout params for the skip button
-                val layoutParamsBack = backButton.layoutParams as ConstraintLayout.LayoutParams
-                val layoutParamsDelete = deleteButton.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val leftMarginInPixelsBack = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixelsback = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                val rightMarginInPixelsDelete = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixelsDelete = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                layoutParamsBack.setMargins(leftMarginInPixelsBack, topMarginInPixelsback, 0, 0)
-                layoutParamsDelete.setMargins(0, topMarginInPixelsDelete, rightMarginInPixelsDelete, 0)
-
-                backButton.layoutParams = layoutParamsBack
-                deleteButton.layoutParams = layoutParamsDelete
 
             }
             "1" -> {
@@ -144,23 +124,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
                 //Bottom
                 Banner1Ads()
 
-                // Create layout params for the skip button
-                val layoutParamsBack = backButton.layoutParams as ConstraintLayout.LayoutParams
-                val layoutParamsDelete = deleteButton.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val leftMarginInPixelsBack = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixelsback = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                val rightMarginInPixelsDelete = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixelsDelete = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                layoutParamsBack.setMargins(leftMarginInPixelsBack, topMarginInPixelsback, 0, 0)
-                layoutParamsDelete.setMargins(0, topMarginInPixelsDelete, rightMarginInPixelsDelete, 0)
-
-                backButton.layoutParams = layoutParamsBack
-                deleteButton.layoutParams = layoutParamsDelete
-
             }
             "2" -> {
 
@@ -170,22 +133,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
 
                 adViewTop.loadAd()
 
-                // Create layout params for the skip button
-                val layoutParamsBack = backButton.layoutParams as ConstraintLayout.LayoutParams
-                val layoutParamsDelete = deleteButton.layoutParams as ConstraintLayout.LayoutParams
-
-                // Set the margins in pixels (adjust the values as needed)
-                val leftMarginInPixelsBack = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixelsback = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                val rightMarginInPixelsDelete = resources.getDimensionPixelSize(R.dimen.marginStartDp) // Use your margin resource
-                val topMarginInPixelsDelete = resources.getDimensionPixelSize(R.dimen.marginTopDp)   // Use your margin resource
-
-                layoutParamsBack.setMargins(leftMarginInPixelsBack, topMarginInPixelsback, 0, 0)
-                layoutParamsDelete.setMargins(0, topMarginInPixelsDelete, rightMarginInPixelsDelete, 0)
-
-                backButton.layoutParams = layoutParamsBack
-                deleteButton.layoutParams = layoutParamsDelete
             }
         }
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     android:background="@color/black"
     tools:context=".main.ActivityMain">
 
@@ -24,19 +25,20 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/logo_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
         android:fontFamily="@font/font_text"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:layout_margin="30dp"
+        android:gravity="center|start"
         android:padding="5dp"
+        android:text="@string/app_name"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:paddingStart="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adaptiveBanner2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--Ads-->
     <!--Adaptive Banner Google-->
@@ -44,7 +46,6 @@
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +101,8 @@
 
                 <com.google.android.ads.nativetemplates.TemplateView
                     android:id="@+id/ad_template"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     app:gnt_template_type="@layout/gnt_medium_template_view"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +172,6 @@
                     tools:listitem="@layout/recent_images_itemview" />
 
             </com.google.android.material.card.MaterialCardView>
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>

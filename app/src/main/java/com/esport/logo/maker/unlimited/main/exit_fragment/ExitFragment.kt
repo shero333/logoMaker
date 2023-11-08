@@ -9,6 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
 import com.applovin.mediation.MaxAdViewAdListener
@@ -30,6 +34,7 @@ import kotlin.properties.Delegates
 
 class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
+    private val MAIL_OR_PLAY_STORE_INTENT_REQ_CODE = 200
     private lateinit var binding: FragmentExitBinding
     private var ratingUser by Delegates.notNull<Float>()
     private lateinit var adRequest: AdRequest
@@ -57,7 +62,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
         //Creating banner for AppLovin
         BannerAdAppLovinTop()
         BannerAdAppLovinBottom()
-
 
         return binding.root
     }
@@ -137,7 +141,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
         val ratingBarB = binding.ratingBar
         ratingBarB.numStars = 5
-        ratingBarB.setMinimumStars(1f)
         ratingBarB.setIsIndicator(false)
         ratingBarB.isClickable = true
         ratingBarB.isScrollable = true
@@ -150,7 +153,7 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
             //send the rating to the play store
             ratingUser = rating
-            ratingBarB.rating = rating
+            ratingBar.rating = rating
 
             // Delay the Play Store redirection to display  the rating on the rating bar
             ratingBar.postDelayed(Runnable {
@@ -193,8 +196,7 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
     private fun openGmailForRating(rating: Float) {
         val recipientEmail = "testFunprim@gmail.com"
         val subject = "Its just implementation and testing"
-        val message =
-            "I would like to rate ${rating.toInt()}/5 Esport logo maker, The reason for this rating is"
+//        val message = "I would like to rate ${rating.toInt()}/5 Esport logo maker, The reason for this rating is"
 
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data =
@@ -207,24 +209,23 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
         startActivity(intent)
 
-        //closing the fragment
-        MainUtils.finishFragment(requireActivity().supportFragmentManager, this@ExitFragment)
+        binding.ratingBar.rating = 0f
     }
 
     private fun openPlayStoreForRating() {
         try {
+
             val uri = Uri.parse("market://details?id=" + requireActivity().packageName)
             val rateIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(rateIntent)
         } catch (e: ActivityNotFoundException) {
-            val uri =
-                Uri.parse("https://play.google.com/store/apps/details?id=" + requireActivity().packageName)
+
+            val uri = Uri.parse("https://play.google.com/store/apps/details?id=" + requireActivity().packageName)
             val rateIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(rateIntent)
-        }
 
-        //closing the fragment
-        MainUtils.finishFragment(requireActivity().supportFragmentManager, this@ExitFragment)
+            binding.ratingBar.rating = 0f
+        }
     }
 
     override fun onAdLoaded(p0: MaxAd?) {}
@@ -256,7 +257,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
             adView.loadAd(adRequest)
         }
     }
-
     private fun Banner2Ads() {
 
         if (BuildConfig.DEBUG) {
@@ -277,7 +277,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
             adView.loadAd(adRequest)
         }
     }
-
     private fun BannerAdAppLovinTop() {
 
         adViewTop = MaxAdView(resources.getString(R.string.bannerAd), requireContext())
@@ -287,7 +286,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
         binding.applovinAdView2.addView(adViewTop)
     }
-
     private fun BannerAdAppLovinBottom() {
 
         adViewBottom = MaxAdView(resources.getString(R.string.bannerAd), requireContext())

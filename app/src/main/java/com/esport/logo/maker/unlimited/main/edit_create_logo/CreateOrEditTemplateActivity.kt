@@ -151,6 +151,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         binding = ActivityCreateOrEditTemplateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set the custom ActionBar as the support ActionBar
+        setSupportActionBar(binding.fragmentToolbar)
+
+        if (supportActionBar != null)
+            supportActionBar!!.title = ""
+
         //Initializing Google Ads
         MobileAds.initialize(this)
         AppLovinSdk.initializeSdk(this)
@@ -353,10 +359,6 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         binding.backButton.setOnClickListener {
             //finish the activity
             binding.colorPickerButton.visibility = View.INVISIBLE
-            //making download button visible
-            binding.downloadButton.visibility = View.VISIBLE
-            //making undo and redo buttons invisible
-            binding.forwardBackwardLayout.visibility = View.VISIBLE
 
             if (binding.stickerTextEdt.isVisible) {
                 binding.stickerTextEdt.visibility = View.GONE

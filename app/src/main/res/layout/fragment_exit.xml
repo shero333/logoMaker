@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
     tools:context=".main.exit_fragment.ExitFragment">
 
@@ -15,7 +16,6 @@
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="18dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
