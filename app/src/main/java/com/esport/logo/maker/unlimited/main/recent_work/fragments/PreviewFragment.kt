@@ -61,11 +61,7 @@ class PreviewFragment(
     private lateinit var adViewTop: MaxAdView
     private lateinit var adViewBottom: MaxAdView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         // Inflate the layout for this fragment
         binding = FragmentPreviewBinding.inflate(inflater, container, false)
@@ -93,8 +89,7 @@ class PreviewFragment(
         adRequest = AdRequest.Builder().build()
 
         //AppLovin
-        interstitialAd =
-            MaxInterstitialAd(resources.getString(R.string.interstitialAd), requireActivity())
+        interstitialAd = MaxInterstitialAd(resources.getString(R.string.interstitialAd), requireActivity())
         interstitialAd!!.setListener(this)
 
         //Creating banner for AppLovin
