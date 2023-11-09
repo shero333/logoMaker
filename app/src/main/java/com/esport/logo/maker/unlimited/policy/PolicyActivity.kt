@@ -201,12 +201,9 @@ class PolicyActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener {
         startActivity(Intent(this@PolicyActivity, PermissionsActivity::class.java))
         finish()
     }
-    override fun onAdClicked(p0: MaxAd?) {
-    }
-    override fun onAdLoadFailed(p0: String?, p1: MaxError?) {
-    }
-    override fun onAdDisplayFailed(p0: MaxAd?, p1: MaxError?) {
-    }
+    override fun onAdClicked(p0: MaxAd?) {}
+    override fun onAdLoadFailed(p0: String?, p1: MaxError?) {}
+    override fun onAdDisplayFailed(p0: MaxAd?, p1: MaxError?) {}
     override fun onAdExpanded(p0: MaxAd?) {}
     override fun onAdCollapsed(p0: MaxAd?) {}
 

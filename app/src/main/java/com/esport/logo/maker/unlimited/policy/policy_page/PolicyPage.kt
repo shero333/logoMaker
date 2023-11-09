@@ -28,7 +28,7 @@ class PolicyPage : AppCompatActivity() {
         binding.policyPage.webViewClient = WebViewClient()
 
         // Load a URL into the WebView
-        binding.policyPage.loadUrl("https://github.com/burhanrashid52/PhotoEditor")
+        binding.policyPage.loadUrl("https://absoluinc.blogspot.com/2019/10/privacy-policy.html")
 
         //on back pressed
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
