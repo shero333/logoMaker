@@ -824,9 +824,7 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             }
             else {
                 //save the current sticker to the folder in the hard drive storage
-                Utils.convertBitmapToPNGAndSave(
-                    this@CreateOrEditTemplateActivity,
-                    binding.stickerView
+                Utils.convertBitmapToPNGAndSave(this@CreateOrEditTemplateActivity, binding.stickerView
                 )
             }
 

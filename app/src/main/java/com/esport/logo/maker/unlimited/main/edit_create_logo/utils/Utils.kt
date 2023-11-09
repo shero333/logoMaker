@@ -184,7 +184,7 @@ class Utils {
 
                 //to preview activity
                 val intent = Intent(activity, PreviewActivity::class.java)
-                intent.putExtra("imagePreview",file.absoluteFile)
+                intent.putExtra("imagePreview",file)
                 activity.startActivityForResult(intent,REQUEST_CODE)
 
             } else {

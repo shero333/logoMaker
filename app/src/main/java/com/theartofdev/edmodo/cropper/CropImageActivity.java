@@ -34,6 +34,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.esport.logo.maker.unlimited.R;
+import com.esport.logo.maker.unlimited.utils.MainUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,6 +63,9 @@ public class CropImageActivity extends AppCompatActivity implements CropImageVie
 
     mCropImageView = findViewById(R.id.cropImageView);
     AppCompatImageView cropButton = findViewById(R.id.cropImage);
+
+    //changing the staus bar color
+    MainUtils.Companion.statusBarColor(this);
 
     Bundle bundle = getIntent().getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE);
     assert bundle != null;

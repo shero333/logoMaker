@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.FileProvider
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
 import com.applovin.mediation.MaxAdViewAdListener
@@ -54,6 +55,7 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
     private var interstitialAd: MaxInterstitialAd? = null
     private lateinit var adViewTop: MaxAdView
     private lateinit var adViewBottom: MaxAdView
+    private lateinit var image:File
 
     @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,7 +157,7 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
         //setting the preview image
         if (intent != null){
 
-            val image = intent.getSerializableExtra("imagePreview") as File
+            image = intent.getSerializableExtra("imagePreview") as File
             binding.logoPreview.setImageBitmap(BitmapFactory.decodeFile(image.absolutePath))
         }
 
@@ -222,7 +224,24 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
             try {
 
                 // Try to open the Facebook app
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/{page_id}"))
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.`package` = "com.facebook.katana"
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(image.absolutePath)
+                val fileUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                 startActivity(intent)
             } catch (e: Exception) {
 
@@ -238,8 +257,24 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
             try {
 
                 // Try to open the Instagram app
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/_u/{username}"))
+                val intent = Intent(Intent.ACTION_SEND, Uri.parse("http://instagram.com/_u/{username}"))
                 intent.setPackage("com.instagram.android")
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(image.absolutePath)
+                val fileUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                 startActivity(intent)
             } catch (e: java.lang.Exception) {
 
@@ -255,8 +290,24 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
             try {
 
                 // Create an Intent to open WhatsApp
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.component = ComponentName("com.whatsapp", "com.whatsapp.HomeActivity")
+                val intent = Intent(Intent.ACTION_SEND)
+                //Target whatsapp:
+                intent.setPackage("com.whatsapp")
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(image.absolutePath)
+                val fileUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(intent)
             } catch (e: java.lang.Exception) {
 
@@ -271,8 +322,23 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
             try {
 
                 // Try to open the Snapchat app
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.snapchat.com/add/{username}"))
+                val intent = Intent(Intent.ACTION_SEND, Uri.parse("https://www.snapchat.com/add/{username}"))
+                intent.`package` = "com.snapchat.android"
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(image.absolutePath)
+                val fileUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(intent)
             } catch (e: java.lang.Exception) {
 
@@ -285,12 +351,22 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
         binding.moreButton.setOnClickListener {
 
             // Create an intent to share some content (e.g., a text message)
-            // Create an intent to share some content (e.g., a text message)
             val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Your message to share")
+            shareIntent.type = "image/*"
 
-            // Create a chooser dialog
+            // Create a Uri from the file path
+            val file = File(image.absolutePath)
+            val fileUri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+            //loading the file to the intent
+            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+            // Optionally, add a subject or text to the share intent
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+            // Grant read permission to the receiving app (required for Android 11+)
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
             // Create a chooser dialog
             val chooser = Intent.createChooser(shareIntent, "Choose an app")
@@ -413,7 +489,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
             adView.loadAd(adRequest)
         }
     }
-
     //Interstitial Ad
     private fun setAd() {
 
@@ -453,7 +528,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
                 })
         }
     }
-
     private fun BannerAdAppLovinTop() {
 
         adViewTop = MaxAdView(resources.getString(R.string.bannerAd), this)
@@ -463,7 +537,6 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
 
         binding.applovinAdView2.addView(adViewTop)
     }
-
     private fun BannerAdAppLovinBottom() {
 
         adViewBottom = MaxAdView(resources.getString(R.string.bannerAd), this)
@@ -473,15 +546,12 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
 
         binding.applovinAdView1.addView(adViewBottom)
     }
-
     override fun onAdLoaded(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdDisplayed(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdHidden(p0: MaxAd?) {
 
         //loading next ad
@@ -491,23 +561,18 @@ class PreviewActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener 
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
     }
-
     override fun onAdClicked(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdLoadFailed(p0: String?, p1: MaxError?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdDisplayFailed(p0: MaxAd?, p1: MaxError?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdExpanded(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdCollapsed(p0: MaxAd?) {
         TODO("Not yet implemented")
     }

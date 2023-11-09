@@ -18,6 +18,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
@@ -189,12 +190,14 @@ class PreviewFragment(
         if (pathImagePreview != null){
 
             binding.deleteButton.visibility = View.GONE
+            //setting the image path
             binding.logoPreview.setImageBitmap(BitmapFactory.decodeFile(pathImagePreview!!.absolutePath))
         }
         else{
             binding.deleteButton.visibility = View.VISIBLE
-            if (clickedLogo != null)
+            if (clickedLogo != null){
                 binding.logoPreview.setImageBitmap(BitmapFactory.decodeFile(clickedLogo!!.filePath))
+            }
         }
 
         //button to share the apps
@@ -204,7 +207,24 @@ class PreviewFragment(
             try {
 
                 // Try to open the Facebook app
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/{page_id}"))
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.`package` = "com.facebook.katana"
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(pathImagePreview!!.absolutePath)
+                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                 startActivity(intent)
             } catch (e: Exception) {
 
@@ -220,8 +240,24 @@ class PreviewFragment(
             try {
 
                 // Try to open the Instagram app
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/_u/{username}"))
+                val intent = Intent(Intent.ACTION_SEND, Uri.parse("http://instagram.com/_u/{username}"))
                 intent.setPackage("com.instagram.android")
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(pathImagePreview!!.absolutePath)
+                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                 startActivity(intent)
             } catch (e: java.lang.Exception) {
 
@@ -237,8 +273,24 @@ class PreviewFragment(
             try {
 
                 // Create an Intent to open WhatsApp
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.component = ComponentName("com.whatsapp", "com.whatsapp.HomeActivity")
+                val intent = Intent(Intent.ACTION_SEND)
+                //Target whatsapp:
+                intent.setPackage("com.whatsapp")
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(pathImagePreview!!.absolutePath)
+                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(intent)
             } catch (e: java.lang.Exception) {
 
@@ -253,8 +305,23 @@ class PreviewFragment(
             try {
 
                 // Try to open the Snapchat app
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.snapchat.com/add/{username}"))
+                val intent = Intent(Intent.ACTION_SEND, Uri.parse("https://www.snapchat.com/add/{username}"))
+                intent.`package` = "com.snapchat.android"
+                intent.type = "image/*"
+
+                // Create a Uri from the file path
+                val file = File(pathImagePreview!!.absolutePath)
+                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+                //loading the file to the intent
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+                // Optionally, add a subject or text to the share intent
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+                intent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+                // Grant read permission to the receiving app (required for Android 11+)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(intent)
             } catch (e: java.lang.Exception) {
 
@@ -267,12 +334,22 @@ class PreviewFragment(
         binding.moreButton.setOnClickListener {
 
             // Create an intent to share some content (e.g., a text message)
-            // Create an intent to share some content (e.g., a text message)
             val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Your message to share")
+            shareIntent.type = "image/*"
 
-            // Create a chooser dialog
+            // Create a Uri from the file path
+            val file = File(pathImagePreview!!.absolutePath)
+            val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+
+            //loading the file to the intent
+            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+
+            // Optionally, add a subject or text to the share intent
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image")
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this image!")
+
+            // Grant read permission to the receiving app (required for Android 11+)
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
             // Create a chooser dialog
             val chooser = Intent.createChooser(shareIntent, "Choose an app")
@@ -359,7 +436,6 @@ class PreviewFragment(
     override fun onAdCollapsed(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
-
     //Ads
     private fun Banner1Ads() {
 
