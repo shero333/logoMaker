@@ -1860,6 +1860,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             //save the bitmap to the sharedPreference
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 viewModelMain.selectedImageShapeAppliedWithEffect = Utils.bitmapToString(targetBitmap)!!
 
                 // setting list in undo redo
@@ -1868,6 +1874,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 viewModelMain.selectedImageSimpleWithEffect = Utils.bitmapToString(targetBitmap)!!
 
@@ -1931,6 +1943,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             //setting the image from previous fragment to the {PhotoView} the view is updated here
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 val image = CropImage.toCustomBitmap(
                     imageChosenCropped,
                     viewModelMain.selectedShapeToAdd!!,
@@ -1946,6 +1964,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 binding.imageFromBackground.setImageBitmap(imageChosenCropped)
 
@@ -2001,6 +2025,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         if (viewModelMain.gradientApplied) {
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 applyAlphaGradientToTheShapedBitmap(
                     Utils.stringToBitmap(viewModelMain.selectedImageShapeApplied),
                     viewModelMain.selectedColor,
@@ -2011,6 +2041,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                 )
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 if (viewModelMain.selectedImageSimple.isNotEmpty()) {
 
@@ -2097,6 +2133,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
         //setting image to the image view
         if (viewModelMain.listName == "shapes") {
+
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(10, 10, 10, 10)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
 
             //checking image is loaded to the shape or not
             if (viewModelMain.colorWasSelected) {
@@ -2592,6 +2634,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 val shapedBitmap = Utils.toCustomShapeBitmap(
                     viewModelMain, Utils.stringToBitmap(viewModelMain.selectedImageSimple),
                     viewModelMain.selectedShapeToAdd!!, this
@@ -2620,6 +2668,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                 }
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 val bitmapToApplyEffect = Utils.stringToBitmap(viewModelMain.selectedImageSimple)!!
 
@@ -2935,6 +2989,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 //setting simple shape to the view
                 val bitmapForEffect = Utils.stringToBitmap(viewModelMain.selectedImageSimple)
                 //set bitmap for the color {This will apply color to the image and then will save it to the 'applied' variable}
@@ -2963,6 +3023,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             }
             else {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 //applying effect to the bitmap
                 if (viewModelMain.backgroundEffect.isNotEmpty()) {
 
@@ -2990,6 +3056,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         else if (viewModelMain.gradientSelected) {
 
             if (viewModelMain.selectedShapeToAdd != 0) {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 //setting simple shape to the view
                 val bitmapForEffect = Utils.stringToBitmap(viewModelMain.selectedImageSimple)
@@ -3049,6 +3121,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                 }
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 //apply radical gradient to the card
                 when (viewModelMain.selectedGradientType) {
@@ -3108,6 +3186,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         }
         else {
             if (viewModelMain.selectedShapeToAdd != 0) {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 //applying effect to the bitmap
                 if (viewModelMain.backgroundEffect.isNotEmpty()) {
@@ -3227,6 +3311,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             }
             else {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 //applying effect to the bitmap
                 if (viewModelMain.backgroundEffect.isNotEmpty()) {
 
@@ -3260,6 +3350,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
                         if (viewModelMain.selectedShapeToAdd != 0){
 
+                            //give the margin
+                            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                            params.setMargins(10, 10, 10, 10)
+                            // Apply the LayoutParams to the View
+                            binding.imageFromBackground.layoutParams = params
+
                             val resultBitmap = applyEffectToTheShapedBitmap(
                                 Utils.stringToBitmap(viewModelMain.backgroundEffect)!!,
                                 Utils.stringToBitmap(
@@ -3272,6 +3368,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                             undoRedoTraversal = viewModelMain.undoRedoArray.size
                         }
                         else{
+
+                            //give the margin
+                            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                            params.setMargins(0, 0, 0, 0)
+                            // Apply the LayoutParams to the View
+                            binding.imageFromBackground.layoutParams = params
 
                             val resultBitmap = applyEffectToTheShapedBitmap(
                                 Utils.stringToBitmap(viewModelMain.backgroundEffect)!!,
@@ -3346,6 +3448,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             //save the bitmap to the sharedPreference
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 //setting the effect applied image
                 viewModelMain.selectedImageShapeAppliedWithEffect = Utils.bitmapToString(targetBitmap)!!
 
@@ -3354,6 +3462,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                 undoRedoTraversal = viewModelMain.undoRedoArray.size
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 viewModelMain.selectedImageSimpleWithEffect = Utils.bitmapToString(targetBitmap)!!
 
@@ -3369,6 +3483,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
         }
         else if (viewModelMain.selectedShapeToAdd != 0) {
 
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(10, 10, 10, 10)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
+
             applyEffectToTheShapedBitmap(
                 effectSelected,
                 Utils.stringToBitmap(
@@ -3383,6 +3503,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             )
         }
         else {
+
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(0, 0, 0, 0)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
 
             // Load the target and texture images as Bitmaps
             val transparentBitmap = Bitmap.createBitmap(
@@ -3444,6 +3570,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             //save the bitmap to the sharedPreference
             if (viewModelMain.selectedShapeToAdd != 0) {
 
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(10, 10, 10, 10)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
+
                 //setting the effect applied image
                 viewModelMain.selectedImageShapeAppliedWithEffect = Utils.bitmapToString(targetBitmap)!!
 
@@ -3452,6 +3584,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                 undoRedoTraversal = viewModelMain.undoRedoArray.size
             }
             else {
+
+                //give the margin
+                val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+                params.setMargins(0, 0, 0, 0)
+                // Apply the LayoutParams to the View
+                binding.imageFromBackground.layoutParams = params
 
                 viewModelMain.selectedImageSimpleWithEffect = Utils.bitmapToString(targetBitmap)!!
 
@@ -3465,6 +3603,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             binding.imageFromBackground.setImageBitmap(targetBitmap)
         }
         else if (viewModelMain.selectedShapeToAdd != 0) {
+
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(10, 10, 10, 10)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
 
             applyEffectToTheShapedBitmap(
                 effectSelected,
@@ -3480,6 +3624,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             )
         }
         else {
+
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(0, 0, 0, 0)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
 
             // Load the target and texture images as Bitmaps
             val transparentBitmap = Bitmap.createBitmap(
@@ -3524,6 +3674,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
 
         //drawing image again on removing the effect
         if (viewModelMain.selectedShapeToAdd != 0) {
+
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(10, 10, 10, 10)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
 
             if (viewModelMain.selectedImageShapeApplied.isNotEmpty()) {
 
@@ -3573,6 +3729,12 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
             }
         }
         else {
+            //give the margin
+            val params = binding.imageFromBackground.layoutParams as FrameLayout.LayoutParams
+            params.setMargins(0, 0, 0, 0)
+            // Apply the LayoutParams to the View
+            binding.imageFromBackground.layoutParams = params
+
             //set the bitmap if the color was not selected but the shape was applied
             val bitmap = Utils.stringToBitmap(viewModelMain.selectedImageSimple)
             binding.imageFromBackground.setImageBitmap(bitmap)

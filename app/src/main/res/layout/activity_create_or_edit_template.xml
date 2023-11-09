@@ -56,7 +56,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:padding="5dp"
-                android:layout_marginStart="10dp" />
+                android:layout_marginStart="5dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </FrameLayout>
