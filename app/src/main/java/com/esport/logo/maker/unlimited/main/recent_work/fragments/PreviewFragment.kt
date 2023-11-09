@@ -47,12 +47,12 @@ import java.io.File
 
 class PreviewFragment(
     private var deleteItem: DeleteItemInPreview,
-    private var backButton: BackButtonClickEvent) : Fragment(),
+    private var backButton: BackButtonClickEvent
+) : Fragment(),
     MaxAdListener, MaxAdViewAdListener {
 
     private lateinit var binding: FragmentPreviewBinding
     private var clickedLogo: SavedLogo? = null
-    private var pathImagePreview: File? = null
     private lateinit var typeLogoClicked: String
     private lateinit var dialogExit: Dialog
     private lateinit var adRequest: AdRequest
@@ -61,17 +61,18 @@ class PreviewFragment(
     private lateinit var adViewTop: MaxAdView
     private lateinit var adViewBottom: MaxAdView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         // Inflate the layout for this fragment
         binding = FragmentPreviewBinding.inflate(inflater, container, false)
 
         //got the clicked logos
         if (requireArguments().getSerializable("logoClicked") != null)
-            clickedLogo =  requireArguments().getSerializable("logoClicked") as SavedLogo
-
-        if (requireArguments().getSerializable("itemSentMain") != null)
-            pathImagePreview = requireArguments().getSerializable("itemSentMain") as File
+            clickedLogo = requireArguments().getSerializable("logoClicked") as SavedLogo
 
         typeLogoClicked = requireArguments().getString("typeLogo", "")
 
@@ -92,7 +93,8 @@ class PreviewFragment(
         adRequest = AdRequest.Builder().build()
 
         //AppLovin
-        interstitialAd = MaxInterstitialAd(resources.getString(R.string.interstitialAd), requireActivity())
+        interstitialAd =
+            MaxInterstitialAd(resources.getString(R.string.interstitialAd), requireActivity())
         interstitialAd!!.setListener(this)
 
         //Creating banner for AppLovin
@@ -116,6 +118,7 @@ class PreviewFragment(
                 binding.applovinAdView2.visibility = View.GONE
 
             }
+
             "1" -> {
 
                 //Admob Ad will be loaded
@@ -129,6 +132,7 @@ class PreviewFragment(
                 Banner1Ads()
 
             }
+
             "2" -> {
 
                 //load AppLovin Banner Ads
@@ -149,6 +153,7 @@ class PreviewFragment(
                 binding.applovinAdView1.visibility = View.GONE
 
             }
+
             "1" -> {
 
                 //Admob Ad will be loaded
@@ -161,6 +166,7 @@ class PreviewFragment(
                 //top
                 Banner2Ads()
             }
+
             "2" -> {
 
                 //load AppLovin Banner Ads
@@ -187,17 +193,11 @@ class PreviewFragment(
         }
 
         //get the arguments of fragment and set the image to the imageview
-        if (pathImagePreview != null){
 
-            binding.deleteButton.visibility = View.GONE
-            //setting the image path
-            binding.logoPreview.setImageBitmap(BitmapFactory.decodeFile(pathImagePreview!!.absolutePath))
-        }
-        else{
+        if (clickedLogo != null) {
+
             binding.deleteButton.visibility = View.VISIBLE
-            if (clickedLogo != null){
-                binding.logoPreview.setImageBitmap(BitmapFactory.decodeFile(clickedLogo!!.filePath))
-            }
+            binding.logoPreview.setImageBitmap(BitmapFactory.decodeFile(clickedLogo!!.filePath))
         }
 
         //button to share the apps
@@ -212,8 +212,12 @@ class PreviewFragment(
                 intent.type = "image/*"
 
                 // Create a Uri from the file path
-                val file = File(pathImagePreview!!.absolutePath)
-                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+                val file = File(clickedLogo!!.filePath)
+                val fileUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    file
+                )
 
                 //loading the file to the intent
                 intent.putExtra(Intent.EXTRA_STREAM, fileUri)
@@ -229,7 +233,8 @@ class PreviewFragment(
             } catch (e: Exception) {
 
                 // If the Facebook app is not installed, open Facebook in a web browser
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/{page_id}"))
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/{page_id}"))
                 startActivity(intent)
             }
         }
@@ -240,13 +245,18 @@ class PreviewFragment(
             try {
 
                 // Try to open the Instagram app
-                val intent = Intent(Intent.ACTION_SEND, Uri.parse("http://instagram.com/_u/{username}"))
+                val intent =
+                    Intent(Intent.ACTION_SEND, Uri.parse("http://instagram.com/_u/{username}"))
                 intent.setPackage("com.instagram.android")
                 intent.type = "image/*"
 
                 // Create a Uri from the file path
-                val file = File(pathImagePreview!!.absolutePath)
-                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+                val file = File(clickedLogo!!.filePath)
+                val fileUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    file
+                )
 
                 //loading the file to the intent
                 intent.putExtra(Intent.EXTRA_STREAM, fileUri)
@@ -262,7 +272,8 @@ class PreviewFragment(
             } catch (e: java.lang.Exception) {
 
                 // If the Instagram app is not installed, open Instagram in a web browser
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/{username}"))
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/{username}"))
                 startActivity(intent)
             }
         }
@@ -279,8 +290,12 @@ class PreviewFragment(
                 intent.type = "image/*"
 
                 // Create a Uri from the file path
-                val file = File(pathImagePreview!!.absolutePath)
-                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+                val file = File(clickedLogo!!.filePath)
+                val fileUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    file
+                )
 
                 //loading the file to the intent
                 intent.putExtra(Intent.EXTRA_STREAM, fileUri)
@@ -295,7 +310,8 @@ class PreviewFragment(
             } catch (e: java.lang.Exception) {
 
                 // If WhatsApp is not installed, you can inform the user or handle it in a way that makes sense for your app.
-                Toast.makeText(requireContext(), "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "WhatsApp is not installed.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -305,13 +321,18 @@ class PreviewFragment(
             try {
 
                 // Try to open the Snapchat app
-                val intent = Intent(Intent.ACTION_SEND, Uri.parse("https://www.snapchat.com/add/{username}"))
+                val intent =
+                    Intent(Intent.ACTION_SEND, Uri.parse("https://www.snapchat.com/add/{username}"))
                 intent.`package` = "com.snapchat.android"
                 intent.type = "image/*"
 
                 // Create a Uri from the file path
-                val file = File(pathImagePreview!!.absolutePath)
-                val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+                val file = File(clickedLogo!!.filePath)
+                val fileUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "${BuildConfig.APPLICATION_ID}.fileprovider",
+                    file
+                )
 
                 //loading the file to the intent
                 intent.putExtra(Intent.EXTRA_STREAM, fileUri)
@@ -326,7 +347,8 @@ class PreviewFragment(
             } catch (e: java.lang.Exception) {
 
                 // If the Snapchat app is not installed, you can inform the user or handle it in a way that makes sense for your app.
-                Toast.makeText(requireContext(), "Snapchat is not installed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Snapchat is not installed.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -338,8 +360,12 @@ class PreviewFragment(
             shareIntent.type = "image/*"
 
             // Create a Uri from the file path
-            val file = File(pathImagePreview!!.absolutePath)
-            val fileUri = FileProvider.getUriForFile(requireContext(), "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+            val file = File(clickedLogo!!.filePath)
+            val fileUri = FileProvider.getUriForFile(
+                requireContext(),
+                "${BuildConfig.APPLICATION_ID}.fileprovider",
+                file
+            )
 
             //loading the file to the intent
             shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
@@ -398,11 +424,11 @@ class PreviewFragment(
             if (clickedLogo != null)
                 deleteItem.deletePreviewItemClicked(clickedLogo!!, typeLogoClicked)
 
-            MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
+            MainUtils.finishFragment(requireActivity().supportFragmentManager, this@PreviewFragment)
 
             dialogExit.dismiss()
 
-            MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
+            MainUtils.finishFragment(requireActivity().supportFragmentManager, this@PreviewFragment)
         }
 
         //cancel button
@@ -425,21 +451,24 @@ class PreviewFragment(
         interstitialAd!!.loadAd()
 
         //finish this fragment
-        MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
+        MainUtils.finishFragment(requireActivity().supportFragmentManager, this@PreviewFragment)
     }
+
     override fun onAdClicked(p0: MaxAd?) {}
     override fun onAdLoadFailed(p0: String?, p1: MaxError?) {}
     override fun onAdDisplayFailed(p0: MaxAd?, p1: MaxError?) {}
     override fun onAdExpanded(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
+
     override fun onAdCollapsed(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
+
     //Ads
     private fun Banner1Ads() {
 
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
 
             val adaptiveAdSize: AdSize = MainUtils.getAdaptiveAdSize(requireContext(), resources)
             val adView = AdView(requireContext())
@@ -447,8 +476,7 @@ class PreviewFragment(
             adView.setAdSize(adaptiveAdSize)
             binding.adaptiveBanner1.addView(adView)
             adView.loadAd(adRequest)
-        }
-        else{
+        } else {
             val adaptiveAdSize: AdSize = MainUtils.getAdaptiveAdSize(requireContext(), resources)
             val adView = AdView(requireContext())
             adView.adUnitId = LogoMakerApp.BANNER_AD_ADMOB_ID_RELEASE
@@ -457,9 +485,10 @@ class PreviewFragment(
             adView.loadAd(adRequest)
         }
     }
+
     private fun Banner2Ads() {
 
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
 
             val adaptiveAdSize: AdSize = MainUtils.getAdaptiveAdSize(requireContext(), resources)
             val adView = AdView(requireContext())
@@ -467,8 +496,7 @@ class PreviewFragment(
             adView.setAdSize(adaptiveAdSize)
             binding.adaptiveBanner2.addView(adView)
             adView.loadAd(adRequest)
-        }
-        else{
+        } else {
             val adaptiveAdSize: AdSize = MainUtils.getAdaptiveAdSize(requireContext(), resources)
             val adView = AdView(requireContext())
             adView.adUnitId = LogoMakerApp.BANNER_AD_ADMOB_ID_RELEASE
@@ -477,9 +505,10 @@ class PreviewFragment(
             adView.loadAd(adRequest)
         }
     }
+
     //Interstitial Ad
     private fun setAd() {
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
 
             InterstitialAd.load(
                 requireContext(),
@@ -496,8 +525,7 @@ class PreviewFragment(
                         mInterstitialAd = interstitialAd
                     }
                 })
-        }
-        else{
+        } else {
 
             InterstitialAd.load(
                 requireContext(),
@@ -516,6 +544,7 @@ class PreviewFragment(
                 })
         }
     }
+
     private fun BannerAdAppLovinTop() {
 
         adViewTop = MaxAdView(resources.getString(R.string.bannerAd), requireContext())
@@ -525,6 +554,7 @@ class PreviewFragment(
 
         binding.applovinAdView2.addView(adViewTop)
     }
+
     private fun BannerAdAppLovinBottom() {
 
         adViewBottom = MaxAdView(resources.getString(R.string.bannerAd), requireContext())
@@ -535,7 +565,7 @@ class PreviewFragment(
         binding.applovinAdView1.addView(adViewBottom)
     }
 
-    interface BackButtonClickEvent{
+    interface BackButtonClickEvent {
         fun backButtonClicked()
     }
 }
