@@ -44,7 +44,8 @@ import java.util.Date
 
 class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItemClick,
     YesterdayListAdapter.YesterdayListItemClick, SpecificDateListAdapter.BeforeYesterdayList,
-    PreviewFragment.DeleteItemInPreview, MaxAdListener, MaxAdViewAdListener {
+    PreviewFragment.DeleteItemInPreview, MaxAdListener, MaxAdViewAdListener,
+    PreviewFragment.BackButtonClickEvent {
 
     private var beforeyesterdayClicked = false
     private var yesterdayClicked = false
@@ -167,19 +168,94 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
 
         container = R.id.container_fragment_activity_Recent_Lists
 
-        previewFragment = PreviewFragment(this)
+        previewFragment = PreviewFragment(this,this)
 
         //setting status bar color
         MainUtils.statusBarColor(this@RecentListActivity)
 
         binding.backButton.setOnClickListener {
-            finish()
+            if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
+
+                //No Ad
+                //finish this activity
+                finish()
+            }
+            else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
+
+                //AdMob Ad
+                if (mInterstitialAd != null) {
+                    mInterstitialAd!!.show(this)
+
+                    mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
+                        override fun onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent()
+
+                            setAd()
+                            //finish this activity
+                            finish()
+                        }
+                    }
+                }
+                else{
+                    setAd()
+                    //finish this activity
+                    finish()
+                }
+            }
+            else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
+
+                //AppLovin interstitial
+                if(interstitialAd!!.isReady)
+                    interstitialAd!!.showAd()
+                else{
+                    //finish this activity
+                    finish()
+                }
+            }
         }
 
         //back pressed button
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                finish()
+
+                if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
+
+                    //No Ad
+                    //finish this activity
+                    finish()
+                }
+                else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
+
+                    //AdMob Ad
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd!!.show(this@RecentListActivity)
+
+                        mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
+                            override fun onAdDismissedFullScreenContent() {
+                                super.onAdDismissedFullScreenContent()
+
+                                setAd()
+                                //finish this activity
+                                finish()
+                            }
+                        }
+                    }
+                    else{
+                        setAd()
+                        //finish this activity
+                        finish()
+                    }
+                }
+                else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
+
+                    //AppLovin interstitial
+                    if(interstitialAd!!.isReady)
+                        interstitialAd!!.showAd()
+                    else{
+                        //finish this activity
+                        finish()
+                    }
+                }
             }
         })
 
@@ -267,6 +343,53 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                 binding.headingListDate.visibility = View.GONE
                 binding.beforeYesterdayCard.visibility = View.GONE
             }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
+
+            //No Ad
+            //finish this activity
+            finish()
+        }
+        else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
+
+            //AdMob Ad
+            if (mInterstitialAd != null) {
+                mInterstitialAd!!.show(this@RecentListActivity)
+
+                mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
+                    override fun onAdDismissedFullScreenContent() {
+                        super.onAdDismissedFullScreenContent()
+
+                        setAd()
+                        //finish this activity
+                        finish()
+                    }
+                }
+            }
+            else{
+                setAd()
+                //finish this activity
+                finish()
+            }
+        }
+        else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
+
+            //AppLovin interstitial
+            if(interstitialAd!!.isReady)
+                interstitialAd!!.showAd()
+            else{
+                //finish this activity
+                finish()
+            }
+        }
+        else{
+            finish()
         }
     }
 
@@ -696,10 +819,16 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
     private fun BannerAdAppLovinBottom() {
 
         adViewBottom = MaxAdView(resources.getString(R.string.bannerAd), this)
-        adViewBottom.setListener(/* p0 = */ this)
+        adViewBottom.setListener(this)
         //preparing the AdView
         adViewBottom.layoutParams = binding.applovinAdView2.layoutParams
 
         binding.applovinAdView1.addView(adViewBottom)
+    }
+
+    override fun backButtonClicked() {
+
+        //finish this fragment
+        MainUtils.finishFragment(supportFragmentManager,previewFragment)
     }
 }

@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -43,8 +44,10 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.io.File
 
 
-class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(), MaxAdListener,
-    MaxAdViewAdListener {
+class PreviewFragment(
+    private var deleteItem: DeleteItemInPreview,
+    private var backButton: BackButtonClickEvent) : Fragment(),
+    MaxAdListener, MaxAdViewAdListener {
 
     private lateinit var binding: FragmentPreviewBinding
     private var clickedLogo: SavedLogo? = null
@@ -173,45 +176,7 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
         //on click listener
         binding.backButton.setOnClickListener {
 
-            if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
-
-                //No Ad
-                //finish this fragment
-                MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
-            }
-            else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
-
-                //AdMob Ad
-                if (mInterstitialAd != null) {
-                    mInterstitialAd!!.show(requireActivity())
-
-                    mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
-
-                        override fun onAdDismissedFullScreenContent() {
-                            super.onAdDismissedFullScreenContent()
-
-                            setAd()
-                            //finish this fragment
-                            MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
-                        }
-                    }
-                }
-                else{
-                    setAd()
-                    //finish this fragment
-                    MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
-                }
-            }
-            else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
-
-                //AppLovin interstitial
-                if(interstitialAd!!.isReady)
-                    interstitialAd!!.showAd()
-                else{
-                    //finish this fragment
-                    MainUtils.finishFragment(requireActivity().supportFragmentManager,this@PreviewFragment)
-                }
-            }
+            backButton.backButtonClicked()
         }
 
         //delete the clicked item
@@ -326,6 +291,14 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
                 ).show()
             }
         }
+
+        //back pressed button
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                backButton.backButtonClicked()
+            }
+        })
     }
 
     //exit dialog function
@@ -383,7 +356,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
     override fun onAdExpanded(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
-
     override fun onAdCollapsed(p0: MaxAd?) {
         TODO("Not yet implemented")
     }
@@ -409,7 +381,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
             adView.loadAd(adRequest)
         }
     }
-
     private fun Banner2Ads() {
 
         if (BuildConfig.DEBUG){
@@ -430,7 +401,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
             adView.loadAd(adRequest)
         }
     }
-
     //Interstitial Ad
     private fun setAd() {
         if (BuildConfig.DEBUG){
@@ -470,7 +440,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
                 })
         }
     }
-
     private fun BannerAdAppLovinTop() {
 
         adViewTop = MaxAdView(resources.getString(R.string.bannerAd), requireContext())
@@ -480,7 +449,6 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
 
         binding.applovinAdView2.addView(adViewTop)
     }
-
     private fun BannerAdAppLovinBottom() {
 
         adViewBottom = MaxAdView(resources.getString(R.string.bannerAd), requireContext())
@@ -489,5 +457,9 @@ class PreviewFragment(private var deleteItem: DeleteItemInPreview) : Fragment(),
         adViewBottom.layoutParams = binding.applovinAdView2.layoutParams
 
         binding.applovinAdView1.addView(adViewBottom)
+    }
+
+    interface BackButtonClickEvent{
+        fun backButtonClicked()
     }
 }

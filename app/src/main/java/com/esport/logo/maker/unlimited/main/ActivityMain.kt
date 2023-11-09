@@ -59,7 +59,7 @@ import java.lang.reflect.Type
 
 @AndroidEntryPoint
 class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicked, MaxAdListener,
-    MaxAdViewAdListener, MaxAdRevenueListener,LifecycleObserver {
+    MaxAdViewAdListener, MaxAdRevenueListener {
 
     private lateinit var nativeAdContainerView: ViewGroup
     private var nativeAdLoader: MaxNativeAdLoader? = null
@@ -109,7 +109,6 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
 
         //instance to kill and call the fragment from this activity
         exitFragment = ExitFragment()
-        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
         //top Ad
         when (LogoMakerApp.MAIN_SCREEN_BANNER_TOP) {
@@ -689,7 +688,8 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
             //no ad
             //navigate to the activity
             startActivity(Intent(this@ActivityMain, RecentListActivity::class.java))
-        } else if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "1") {
+        }
+        else if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "1") {
 
             //Loading Ad Mob interstitial
             if (mInterstitialAd != null) {
@@ -710,7 +710,8 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 //navigate to the activity
                 startActivity(Intent(this@ActivityMain, RecentListActivity::class.java))
             }
-        } else if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "2") {
+        }
+        else if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "2") {
 
             //loading Ad AppLovin interstitial
             //Applovin Ad
@@ -926,11 +927,5 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                     super.onNativeAdClicked(p0)
                 }
             })
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun finishExitFragment(){
-        //closing the fragment
-        MainUtils.finishFragment(supportFragmentManager, exitFragment)
     }
 }

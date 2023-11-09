@@ -4,15 +4,10 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ProcessLifecycleOwner
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdListener
 import com.applovin.mediation.MaxAdViewAdListener
@@ -29,6 +24,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.willy.ratingbar.ScaleRatingBar
 import kotlin.properties.Delegates
 
 
@@ -36,7 +32,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
     private val MAIL_OR_PLAY_STORE_INTENT_REQ_CODE = 200
     private lateinit var binding: FragmentExitBinding
-    private var ratingUser by Delegates.notNull<Float>()
     private lateinit var adRequest: AdRequest
     private lateinit var adViewTop: MaxAdView
     private lateinit var adViewBottom: MaxAdView
@@ -68,6 +63,9 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        //removing the rating in the rating bar
+//        binding.ratingBar.rating = 0f
 
         //top Ad
         when (LogoMakerApp.EXIT_SCREEN_BANNER_TOP) {
@@ -139,8 +137,11 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
             }
         }
 
+        //setting up rating bar
         val ratingBarB = binding.ratingBar
-        ratingBarB.numStars = 5
+        ratingBarB.setNumStars(5)
+        ratingBarB.setMinimumStars(0F)
+        ratingBarB.setStepSize(1f)
         ratingBarB.setIsIndicator(false)
         ratingBarB.isClickable = true
         ratingBarB.isScrollable = true
@@ -151,20 +152,19 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
         //get the rating
         ratingBarB.setOnRatingChangeListener { ratingBar, rating, fromUser ->
 
-            //send the rating to the play store
-            ratingUser = rating
-            ratingBar.rating = rating
-
             // Delay the Play Store redirection to display  the rating on the rating bar
             ratingBar.postDelayed(Runnable {
 
-                if (rating <= 3)
-                //open mail
-                    openGmailForRating(rating)
-                else
-                //open playStore
-                    openPlayStoreForRating()
-
+                if (fromUser){
+                    if (rating <= 3) {
+                        //open mail
+                        openGmailForRating()
+                    }
+                    else {
+                        //open playStore
+                        openPlayStoreForRating()
+                    }
+                }
             },700)
 
         }
@@ -193,10 +193,9 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
         }
     }
 
-    private fun openGmailForRating(rating: Float) {
+    private fun openGmailForRating() {
         val recipientEmail = "testFunprim@gmail.com"
         val subject = "Its just implementation and testing"
-//        val message = "I would like to rate ${rating.toInt()}/5 Esport logo maker, The reason for this rating is"
 
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data =
@@ -208,8 +207,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
         intent.putExtra(Intent.EXTRA_SUBJECT, subject) // Set the email subject
 
         startActivity(intent)
-
-        binding.ratingBar.rating = 0f
     }
 
     private fun openPlayStoreForRating() {
@@ -223,8 +220,6 @@ class ExitFragment : Fragment(), MaxAdListener, MaxAdViewAdListener {
             val uri = Uri.parse("https://play.google.com/store/apps/details?id=" + requireActivity().packageName)
             val rateIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(rateIntent)
-
-            binding.ratingBar.rating = 0f
         }
     }
 

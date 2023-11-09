@@ -77,8 +77,6 @@ class MainUtils {
             // Begin a transaction to add the fragment to the layout
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
             transaction.replace(fragmentContainer, fragment)
-            //clearing the back stack of the fragment
-            transaction.addToBackStack(null)
             transaction.commit()
         }
 
@@ -86,6 +84,7 @@ class MainUtils {
 
             // Remove the fragment from the activity
             val transaction = fragmentManager.beginTransaction()
+            transaction.addToBackStack(null)
             transaction.remove(fragment).commit()
         }
 
@@ -198,10 +197,15 @@ class MainUtils {
                             parsedValuesInterstitialOpenAdNetworks.getString("CreateLogoScreen_back_button_press_interstitial")
                         LogoMakerApp.CREATE_LOGO_SCREEN_DOWNLOAD_BUTTON_PRESS_INTERSTITIAL =
                             parsedValuesInterstitialOpenAdNetworks.getString("CreateLogoScreen_download_button_press_interstitial")
-
-                        LogoMakerApp.POLICY_ACTIVITY_BUTTON_CLICK_INTERSTITIAL = parsedValuesInterstitialOpenAdNetworks.getString("PolicyActivity_button_click_interstitial")
-                        LogoMakerApp.PERMISSION_ACTIVITY_BUTTON_CLICK_INTERSTITIAL = parsedValuesInterstitialOpenAdNetworks.getString("PermissionActivity_button_click_interstitial")
-                        LogoMakerApp.BOARDING_ACTIVITY_BUTTON_CLICK_INTERSTITIAL = parsedValuesInterstitialOpenAdNetworks.getString("BoardingActivity_button_click_interstitial")
+                        //policy activity
+                        LogoMakerApp.POLICY_ACTIVITY_BUTTON_CLICK_INTERSTITIAL =
+                            parsedValuesInterstitialOpenAdNetworks.getString("PolicyActivity_button_click_interstitial")
+                        //permissions activity
+                        LogoMakerApp.PERMISSION_ACTIVITY_BUTTON_CLICK_INTERSTITIAL =
+                            parsedValuesInterstitialOpenAdNetworks.getString("PermissionActivity_button_click_interstitial")
+                        //boarding activity
+                        LogoMakerApp.BOARDING_ACTIVITY_BUTTON_CLICK_INTERSTITIAL =
+                            parsedValuesInterstitialOpenAdNetworks.getString("BoardingActivity_button_click_interstitial")
 
                         Log.i("DEBUG_AD_IDs ", LogoMakerApp.BANNER_AD_ADMOB_ID_DEBUG)
                     } else {
