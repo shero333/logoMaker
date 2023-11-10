@@ -84,7 +84,7 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
         //remove status bar
         MainUtils.makeStatusBarTransparent(this@SplashActivity)
 
-        //runtime 1st check
+        //runtime 1st check if the connection is available then the call will be sent if not then the button will be visible
         if (checkForInternet(this)) {
             //loading banner ads according to the firebase
             MainUtils.splash_banner_liveData.observe(this) { SPLASH_BANNER_BOTTOM->
