@@ -5,6 +5,8 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" /> <!-- permissions required to continue -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!--Permission for add -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
@@ -127,7 +129,7 @@
         <!--meta data for the Admob google sdk-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5809026421762394/6368118751" />
+            android:value="ca-app-pub-5809026421762394~3165286637" />
 
 <!--        <service-->
 <!--            android:name="com.esport.logo.maker.unlimited.push_notifications.MyFirebaseMessagingService"-->

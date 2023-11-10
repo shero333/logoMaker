@@ -3,6 +3,10 @@ package com.esport.logo.maker.unlimited.splash
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -77,58 +81,6 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
         //openAd
         loadAd(this)
 
-        //loading banner ads according to the firebase
-        MainUtils.splash_banner_liveData.observe(this) { SPLASH_BANNER_BOTTOM->
-
-            Handler().postDelayed(
-                {
-                    binding.progressBarAnim.pauseAnimation()
-                    binding.progressBarAnim.visibility = View.INVISIBLE
-                    binding.continueButton.visibility = View.VISIBLE
-                },
-                5000
-            ) // 7000 milliseconds = 7 seconds
-
-            if (SPLASH_BANNER_BOTTOM.isNotEmpty()){
-
-                //showing the banner Ad on Top of the splash
-                when (SPLASH_BANNER_BOTTOM) {
-                    "0" -> {
-
-                        //no ad will be loaded
-                        binding.adaptiveBanner2.visibility = View.GONE
-                        binding.applovinAdView2.visibility = View.GONE
-
-                    }
-                    "1" -> {
-
-                        //Admob Ad will be loaded
-                        binding.adaptiveBanner2.visibility = View.VISIBLE
-                        binding.applovinAdView2.visibility = View.INVISIBLE
-
-                        //google banner ad load
-                        //bottom
-                        Banner2Ads()
-
-                    }
-                    "2" -> {
-
-                        //load AppLovin Banner Ads
-                        binding.adaptiveBanner2.visibility = View.INVISIBLE
-                        binding.applovinAdView2.visibility = View.VISIBLE
-
-                        adViewTop.loadAd()
-                    }
-                }
-            }
-            else{
-                // Use a Handler to schedule making the button visible after 7 seconds to wait to load the splash Ad
-                binding.progressBarAnim.pauseAnimation()
-                binding.progressBarAnim.visibility = View.INVISIBLE
-                binding.continueButton.visibility = View.VISIBLE
-            }
-        }
-
         //remove status bar
         MainUtils.makeStatusBarTransparent(this@SplashActivity)
 
@@ -176,6 +128,84 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
                     }
             }
         }
+
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+            .build()
+
+        //this callback is for runtime check that whether the internet is connection is available or not!
+        val networkCallback = object : ConnectivityManager.NetworkCallback() {
+            // network is available for use
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+
+                runOnUiThread {
+
+                    //loading banner ads according to the firebase
+                    MainUtils.splash_banner_liveData.observe(this@SplashActivity) { SPLASH_BANNER_BOTTOM->
+
+                        Handler().postDelayed(
+                            {
+                                binding.progressBarAnim.pauseAnimation()
+                                binding.progressBarAnim.visibility = View.INVISIBLE
+                                binding.continueButton.visibility = View.VISIBLE
+                            }, 2000) // 7000 milliseconds = 7 seconds
+
+                        if (SPLASH_BANNER_BOTTOM.isNotEmpty()){
+
+                            //showing the banner Ad on Top of the splash
+                            when (SPLASH_BANNER_BOTTOM) {
+                                "0" -> {
+                                    //no ad will be loaded
+                                    binding.adaptiveBanner2.visibility = View.GONE
+                                    binding.applovinAdView2.visibility = View.GONE
+                                }
+                                "1" -> {
+
+                                    //Admob Ad will be loaded
+                                    binding.adaptiveBanner2.visibility = View.VISIBLE
+                                    binding.applovinAdView2.visibility = View.INVISIBLE
+
+                                    //google banner ad load
+                                    //bottom
+                                    Banner2Ads()
+                                }
+                                "2" -> {
+                                    //load AppLovin Banner Ads
+                                    binding.adaptiveBanner2.visibility = View.INVISIBLE
+                                    binding.applovinAdView2.visibility = View.VISIBLE
+
+                                    adViewTop.loadAd()
+                                }
+                            }
+                        }
+                        else{
+                            // Use a Handler to schedule making the button visible after 7 seconds to wait to load the splash Ad
+                            binding.progressBarAnim.pauseAnimation()
+                            binding.progressBarAnim.visibility = View.INVISIBLE
+                            binding.continueButton.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+
+            // lost network connection
+            override fun onLost(network: Network) {
+                super.onLost(network)
+
+                runOnUiThread {
+                    binding.progressBarAnim.pauseAnimation()
+                    binding.progressBarAnim.visibility = View.INVISIBLE
+                    binding.continueButton.visibility = View.VISIBLE
+                }
+
+            }
+        }
+
+        val connectivityManager = getSystemService(ConnectivityManager::class.java) as ConnectivityManager
+        connectivityManager.requestNetwork(networkRequest, networkCallback)
     }
 
     private fun BannerAdAppLovin() {
