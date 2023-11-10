@@ -84,6 +84,65 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
         //remove status bar
         MainUtils.makeStatusBarTransparent(this@SplashActivity)
 
+        //runtime 1st check
+        if (checkForInternet(this)) {
+            //loading banner ads according to the firebase
+            MainUtils.splash_banner_liveData.observe(this) { SPLASH_BANNER_BOTTOM->
+
+                Handler().postDelayed(
+                    {
+                        binding.progressBarAnim.pauseAnimation()
+                        binding.progressBarAnim.visibility = View.INVISIBLE
+                        binding.continueButton.visibility = View.VISIBLE
+                    },
+                    5000
+                ) // 7000 milliseconds = 7 seconds
+
+                if (SPLASH_BANNER_BOTTOM.isNotEmpty()){
+
+                    //showing the banner Ad on Top of the splash
+                    when (SPLASH_BANNER_BOTTOM) {
+                        "0" -> {
+
+                            //no ad will be loaded
+                            binding.adaptiveBanner2.visibility = View.GONE
+                            binding.applovinAdView2.visibility = View.GONE
+
+                        }
+                        "1" -> {
+
+                            //Admob Ad will be loaded
+                            binding.adaptiveBanner2.visibility = View.VISIBLE
+                            binding.applovinAdView2.visibility = View.INVISIBLE
+
+                            //google banner ad load
+                            //bottom
+                            Banner2Ads()
+
+                        }
+                        "2" -> {
+
+                            //load AppLovin Banner Ads
+                            binding.adaptiveBanner2.visibility = View.INVISIBLE
+                            binding.applovinAdView2.visibility = View.VISIBLE
+
+                            adViewTop.loadAd()
+                        }
+                    }
+                }
+                else{
+                    // Use a Handler to schedule making the button visible after 7 seconds to wait to load the splash Ad
+                    binding.progressBarAnim.pauseAnimation()
+                    binding.progressBarAnim.visibility = View.INVISIBLE
+                    binding.continueButton.visibility = View.VISIBLE
+                }
+            }
+        }
+        else {
+            binding.continueButton.visibility = View.VISIBLE
+            binding.progressBarAnim.visibility = View.GONE
+        }
+
         //listener for splash button to continue the flow of the app!
         binding.continueButton.setOnClickListener {
 
@@ -151,7 +210,9 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
                                 binding.progressBarAnim.pauseAnimation()
                                 binding.progressBarAnim.visibility = View.INVISIBLE
                                 binding.continueButton.visibility = View.VISIBLE
-                            }, 2000) // 7000 milliseconds = 7 seconds
+                            },
+                            2000
+                        ) // 7000 milliseconds = 7 seconds
 
                         if (SPLASH_BANNER_BOTTOM.isNotEmpty()){
 
@@ -394,5 +455,31 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
         val dateDifference: Long = Date().time - loadTime
         val numMilliSecondsPerHour: Long = 3600000
         return dateDifference < numMilliSecondsPerHour * numHours
+    }
+
+    private fun checkForInternet(context: Context): Boolean {
+
+        // register activity with the connectivity manager service
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        // Returns a Network object corresponding to
+        // the currently active default data network.
+        val network = connectivityManager.activeNetwork ?: return false
+
+        // Representation of the capabilities of an active network.
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return when {
+            // Indicates this network uses a Wi-Fi transport,
+            // or WiFi has network connectivity
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+            // Indicates this network uses a Cellular transport. or
+            // Cellular has network connectivity
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+            // else return false
+            else -> false
+        }
     }
 }
