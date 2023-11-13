@@ -15,9 +15,10 @@
     <FrameLayout
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
-        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintBottom_toTopOf="@+id/back_button_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +26,8 @@
     <FrameLayout
         android:id="@+id/applovinAdView2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
         app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"
@@ -196,7 +198,8 @@
     <FrameLayout
         android:id="@+id/adaptiveBanner1"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -205,7 +208,8 @@
     <FrameLayout
         android:id="@+id/applovinAdView1"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner1"
         app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner1"

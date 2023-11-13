@@ -95,7 +95,7 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
                         binding.progressBarAnim.visibility = View.INVISIBLE
                         binding.continueButton.visibility = View.VISIBLE
                     },
-                    5000
+                    7000
                 ) // 7000 milliseconds = 7 seconds
 
                 if (SPLASH_BANNER_BOTTOM.isNotEmpty()){
@@ -211,7 +211,7 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
                                 binding.progressBarAnim.visibility = View.INVISIBLE
                                 binding.continueButton.visibility = View.VISIBLE
                             },
-                            2000
+                            7000
                         ) // 7000 milliseconds = 7 seconds
 
                         if (SPLASH_BANNER_BOTTOM.isNotEmpty()){
@@ -294,7 +294,7 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
 
             val adaptiveAdSize: AdSize = MainUtils.getAdaptiveAdSize(this, resources)
             val adView = AdView(this)
-            adView.adUnitId = LogoMakerApp.BANNER_AD_ADMOB_ID_DEBUG
+            adView.adUnitId = LogoMakerApp.BANNER_AD_ADMOB_ID_RELEASE
             adView.setAdSize(adaptiveAdSize)
             binding.adaptiveBanner2.addView(adView)
             adView.loadAd(adRequest)

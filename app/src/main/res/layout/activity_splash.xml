@@ -24,7 +24,8 @@
     <FrameLayout
         android:id="@+id/adaptiveBanner2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,8 @@
     <FrameLayout
         android:id="@+id/applovinAdView2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:minHeight="55dp"
         android:background="@drawable/background_ads_adaptive_banner"
         app:layout_constraintBottom_toBottomOf="@+id/adaptiveBanner2"
         app:layout_constraintEnd_toEndOf="@+id/adaptiveBanner2"

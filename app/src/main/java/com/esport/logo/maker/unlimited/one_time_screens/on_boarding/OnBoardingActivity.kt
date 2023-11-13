@@ -103,9 +103,6 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
                 //google banner ad load
                 //top
                 Banner2Ads()
-                //bottom
-                Banner1Ads()
-
             }
             "2" -> {
 
@@ -135,8 +132,6 @@ class OnBoardingActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListen
                 //google banner ad load
                 //bottom
                 Banner1Ads()
-                //top
-                Banner2Ads()
             }
             "2" -> {
 

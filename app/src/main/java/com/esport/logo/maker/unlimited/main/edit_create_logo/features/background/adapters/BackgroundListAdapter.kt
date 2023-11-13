@@ -84,7 +84,6 @@ class BackgroundListAdapter(
                         holder.placeholderImage.visibility = View.GONE
                         return false
                     }
-
                 })
                 .into(holder.backgroundItem)
 

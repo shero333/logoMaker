@@ -752,13 +752,37 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                     //applying gradient
                     viewModelMain.gradientColor1 = selectedColor
 
-                    applyColorToTheShapedBitmap(
-                        Utils.stringToBitmap(viewModelMain.selectedImageShapeApplied),
-                        selectedColor,
-                        viewModelMain.selectedShapeToAdd!!
-                    )
+                    binding.stickerView.visibility = View.VISIBLE
+                    //making download button visible
+                    binding.downloadButton.visibility = View.VISIBLE
+                    //making undo and redo buttons invisible
+                    binding.forwardBackwardLayout.visibility = View.VISIBLE
+                    binding.undoButton.visibility = View.VISIBLE
+                    binding.redoButton.visibility = View.VISIBLE
 
+                    //saving values
                     viewModelMain.selectedColor = selectedColor
+                    viewModelMain.colorWasSelected = true
+                    viewModelMain.gradientApplied = false
+
+                    //on color item clicked is applied on the color card
+                    if (viewModelMain.selectedImageShapeApplied.isNotEmpty())
+                        applyColorToTheShapedBitmap(
+                            Utils.stringToBitmap(viewModelMain.selectedImageShapeApplied),
+                            viewModelMain.selectedColor,
+                            viewModelMain.selectedShapeToAdd!!
+                        )
+                    else
+                        applyColorToTheShapedBitmap(
+                            Utils.stringToBitmap(
+                                Utils.drawableToString(
+                                    ContextCompat.getDrawable(
+                                        this,
+                                        R.drawable.bg1
+                                    )
+                                )
+                            ),
+                            viewModelMain.selectedColor, viewModelMain.selectedShapeToAdd!!)
 
                     dialog!!.dismiss()
                 }
