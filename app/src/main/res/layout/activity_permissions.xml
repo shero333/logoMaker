@@ -58,6 +58,7 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/logo_text"
             android:layout_width="wrap_content"
