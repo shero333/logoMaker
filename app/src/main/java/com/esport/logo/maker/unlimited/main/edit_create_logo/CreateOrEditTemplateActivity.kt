@@ -4233,31 +4233,34 @@ class CreateOrEditTemplateActivity : AppCompatActivity(),
                             override fun onAdDismissedFullScreenContent() {
                                 super.onAdDismissedFullScreenContent()
 
+                                dialogExit.dismiss()
+
                                 setAd()
 
                                 finish()
-                                dialogExit.dismiss()
                             }
                         }
-                } else {
+                }
+                else {
+                    dialogExit.dismiss()
                     setAd()
 
                     finish()
-                    dialogExit.dismiss()
                 }
-            } else if (LogoMakerApp.CREATE_LOGO_SCREEN_BACK_BUTTON_PRESS_INTERSTITIAL == "2") {
+            }
+            else if (LogoMakerApp.CREATE_LOGO_SCREEN_BACK_BUTTON_PRESS_INTERSTITIAL == "2") {
 
                 //load AppLovin
                 if (interstitialAd!!.isReady)
                     interstitialAd!!.showAd()
                 else {
                     interstitialAd!!.loadAd()
-                    finish()
                     dialogExit.dismiss()
+                    finish()
                 }
             } else {
-                finish()
                 dialogExit.dismiss()
+                finish()
             }
 
         }

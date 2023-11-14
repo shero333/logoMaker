@@ -390,13 +390,6 @@ class PreviewFragment(
             }
         }
 
-        //back pressed button
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-
-                backButton.backButtonClicked()
-            }
-        })
     }
 
     //exit dialog function

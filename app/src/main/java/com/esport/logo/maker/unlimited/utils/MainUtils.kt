@@ -33,6 +33,8 @@ class MainUtils {
 
         private var REQUEST_CODE_STORAGE = 3
         var splash_banner_liveData = MutableLiveData<String>()
+        var openAd_id_release_liveData = MutableLiveData<String>()
+        var openAd_id_debug_liveData = MutableLiveData<String>()
 
         fun makeStatusBarTransparent(activity: Activity) {
             activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -84,7 +86,6 @@ class MainUtils {
 
             // Remove the fragment from the activity
             val transaction = fragmentManager.beginTransaction()
-            transaction.addToBackStack(null)
             transaction.remove(fragment).commit()
         }
 
@@ -130,14 +131,13 @@ class MainUtils {
                         LogoMakerApp.BANNER_AD_ADMOB_ID_DEBUG = debug.getString("banner_Ad_Admob_id")
                         LogoMakerApp.NATIVE_AD_ADMOB_ID_DEBUG = debug.getString("native_Ad_Admob_id")
                         LogoMakerApp.INTERSTITIAL_AD_ADMOB_ID_DEBUG = debug.getString("interstitial_Ad_Admob_id")
-                        LogoMakerApp.OPEN_AD_ADMOB_ID_DEBUG = debug.getString("openAd_Ad_Admob_id")
+                        openAd_id_debug_liveData.value = release.getString("openAd_Ad_Admob_id")
 
                         //Ad Ids Admob {Release}
                         LogoMakerApp.BANNER_AD_ADMOB_ID_RELEASE = release.getString("banner_Ad_Admob_id")
                         LogoMakerApp.NATIVE_AD_ADMOB_ID_RELEASE = release.getString("native_Ad_Admob_id")
                         LogoMakerApp.INTERSTITIAL_AD_ADMOB_ID_RELEASE = release.getString("interstitial_Ad_Admob_id")
-                        LogoMakerApp.OPEN_AD_ADMOB_ID_RELEASE = release.getString("openAd_Ad_Admob_id")
-
+                        openAd_id_release_liveData.value = release.getString("openAd_Ad_Admob_id")
 
                         //banner and native networks.....
                         val parsedValuesBannerNativeNetworks = JSONObject(banner_native_networkJson)
@@ -185,10 +185,6 @@ class MainUtils {
                         //recents screen
                         LogoMakerApp.RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL =
                             parsedValuesInterstitialOpenAdNetworks.getString("RecentsActivity_recentList_item_click_interstitial")
-                        LogoMakerApp.RECENTS_ACTIVITY_YESTERDAYLIST_ITEM_CLICK_INTERSTITIAL =
-                            parsedValuesInterstitialOpenAdNetworks.getString("RecentsActivity_yesterdayList_item_click_interstitial")
-                        LogoMakerApp.RECENTS_ACTIVITY_DAYBEFORE_YESTERDAYLIST_ITEM_CLICK_INTERSTITIAL =
-                            parsedValuesInterstitialOpenAdNetworks.getString("RecentsActivity_dayBeforeYesterdayList_item_click_interstitial")
                         //Preview
                         LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL =
                             parsedValuesInterstitialOpenAdNetworks.getString("PreviewActivity_back_button_press_click_interstitial")

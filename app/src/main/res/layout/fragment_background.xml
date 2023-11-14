@@ -86,65 +86,75 @@
             app:layout_constraintStart_toStartOf="@+id/list_logos"
             app:layout_constraintTop_toTopOf="@+id/list_logos"/>
 
-        <!--linear progress bar opacity-->
-        <SeekBar
-            android:id="@+id/opacity_progress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:max="100"
-            android:progress="100"
-            android:progressDrawable="@drawable/custom_seekbar"
-            android:thumb="@drawable/seekbar_thumb_icon"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/card_edit_options"
-            app:layout_constraintStart_toEndOf="@+id/opacity_icon"
-            app:layout_constraintTop_toBottomOf="@+id/card_edit_options" />
-
-        <!--Fragment top view-->
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/opacity_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:src="@drawable/opacity_icon"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/opacity_progress"
-            app:layout_constraintEnd_toStartOf="@+id/opacity_progress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/opacity_progress" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/colorListRecyclerview"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/color_other_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/list_logos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/opacity_progress"
-            app:spanCount="5"
-            tools:itemCount="140"
-            tools:listitem="@layout/colorlist_itemview" />
+            app:layout_constraintTop_toBottomOf="@+id/card_edit_options">
 
-        <include
-            android:id="@+id/gradient_bottomview"
-            layout="@layout/gradient_bottom_viewlayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/opacity_progress" />
+            <!--linear progress bar opacity-->
+            <SeekBar
+                android:id="@+id/opacity_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/custom_seekbar"
+                android:thumb="@drawable/seekbar_thumb_icon"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/opacity_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Fragment top view-->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/opacity_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:src="@drawable/opacity_icon"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/opacity_progress"
+                app:layout_constraintEnd_toStartOf="@+id/opacity_progress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/opacity_progress" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/colorListRecyclerview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/opacity_progress"
+                app:spanCount="5"
+                tools:itemCount="140"
+                tools:listitem="@layout/colorlist_itemview" />
+
+            <include
+                android:id="@+id/gradient_bottomview"
+                layout="@layout/gradient_bottom_viewlayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/opacity_progress" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

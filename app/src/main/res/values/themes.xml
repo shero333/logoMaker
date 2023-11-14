@@ -11,7 +11,7 @@
     <style name="Theme.AppSplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/theme_color</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/app_icon</item>
-        <item name="windowSplashScreenAnimationDuration">7000</item>
+        <item name="windowSplashScreenAnimationDuration">10000</item>
         <item name="postSplashScreenTheme">@style/Theme.TheLogoMaker</item>
 
     </style>

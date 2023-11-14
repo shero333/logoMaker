@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
 import com.applovin.mediation.MaxAd
@@ -46,13 +47,9 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
 
     private lateinit var binding: ActivitySplashBinding
     private lateinit var adRequest: AdRequest
-    private var appOpenAd: AppOpenAd? = null
-    private var isLoadingAd = false
-    var isShowingAd = false
-    private val LOG_TAG = "AppOpenAdManager"
-    private var loadTime: Long = 0
     private lateinit var adViewTop: MaxAdView
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -78,11 +75,10 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
         //creating banner Ad
         BannerAdAppLovin()
 
-        //openAd
-        loadAd(this)
-
         //remove status bar
         MainUtils.makeStatusBarTransparent(this@SplashActivity)
+
+//        LogoMakerApp.appOpenAdManager.loadAd(this)
 
         //runtime 1st check if the connection is available then the call will be sent if not then the button will be visible
         if (checkForInternet(this)) {
@@ -166,7 +162,7 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
                     }
                 "1"->{
                         //load Admob OpenAd
-                        showAdIfAvailable(object : OnShowAdCompleteListener {
+                        LogoMakerApp.appOpenAdManager.showAdIfAvailable(this@SplashActivity,object : OnShowAdCompleteListener {
                             override fun onShowAdComplete() {
 
                                 if (SharedPreference.isFirstRun) {
@@ -184,6 +180,22 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
                             }
 
                         })
+                    }
+
+                else ->
+                    //no load Admob OpenAd
+                    if (SharedPreference.isFirstRun) {
+
+                        //changed preference value here or in the boarding screens
+
+                        //call on Boarding screens
+                        startActivity(Intent(this@SplashActivity, PolicyActivity::class.java))
+                        finish()
+                    }
+                    else {
+                        //call main Activity
+                        startActivity(Intent(this@SplashActivity, ActivityMain::class.java))
+                        finish()
                     }
             }
         }
@@ -317,146 +329,7 @@ class SplashActivity : AppCompatActivity(), MaxAdListener, MaxAdViewAdListener, 
     }
     override fun onAdExpanded(p0: MaxAd?) {}
     override fun onAdCollapsed(p0: MaxAd?) {}
-
-    override fun onStart() {
-        super.onStart()
-
-        loadAd(this)
-    }
-
-    /** Request an ad. */
-    fun loadAd(context: Context) {
-
-        if (BuildConfig.DEBUG) {
-            // Do not load ad if there is an unused ad or one is already loading.
-            if (isLoadingAd || isAdAvailable()) {
-                return
-            }
-
-            isLoadingAd = true
-            val request = AdRequest.Builder().build()
-
-            AppOpenAd.load(context, LogoMakerApp.OPEN_AD_ADMOB_ID_DEBUG,
-                request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-
-                object : AppOpenAd.AppOpenAdLoadCallback() {
-
-                    override fun onAdLoaded(ad: AppOpenAd) {
-                        // Called when an app open ad has loaded.
-                        Log.d(LOG_TAG, "Ad was loaded.")
-                        appOpenAd = ad
-                        isLoadingAd = false
-                        loadTime = Date().time
-                    }
-
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        // Called when an app open ad has failed to load.
-                        Log.d(LOG_TAG, loadAdError.message)
-                        isLoadingAd = false;
-                        loadAd(this@SplashActivity)
-                    }
-                })
-        }
-        else {
-            // Do not load ad if there is an unused ad or one is already loading.
-            if (isLoadingAd || isAdAvailable()) {
-                return
-            }
-
-            isLoadingAd = true
-            val request = AdRequest.Builder().build()
-
-            AppOpenAd.load(context, LogoMakerApp.OPEN_AD_ADMOB_ID_RELEASE,
-                request,
-                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-
-                object : AppOpenAd.AppOpenAdLoadCallback() {
-
-                    override fun onAdLoaded(ad: AppOpenAd) {
-                        // Called when an app open ad has loaded.
-                        Log.d(LOG_TAG, "Ad was loaded.")
-                        appOpenAd = ad
-                        isLoadingAd = false
-                        loadTime = Date().time
-                    }
-
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        // Called when an app open ad has failed to load.
-                        Log.d(LOG_TAG, loadAdError.message)
-                        isLoadingAd = false;
-                    }
-                })
-        }
-    }
-
-    /** Check if ad exists and can be shown. */
-    private fun isAdAvailable(): Boolean {
-        return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4)
-    }
-
-    /** Shows the ad if one isn't already showing. */
-    private fun showAdIfAvailable(onShowAdCompleteListener: OnShowAdCompleteListener) {
-        // If the app open ad is already showing, do not show the ad again.
-        if (isShowingAd) {
-            Log.d(LOG_TAG, "The app open ad is already showing.")
-            return
-        }
-
-        // If the app open ad is not available yet, invoke the callback then load the ad.
-        if (!isAdAvailable()) {
-            Log.d(LOG_TAG, "The app open ad is not ready yet.")
-            onShowAdCompleteListener.onShowAdComplete()
-            loadAd(this@SplashActivity)
-            return
-        }
-
-        try {
-
-            appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-
-                override fun onAdDismissedFullScreenContent() {
-                    // Called when full screen content is dismissed.
-                    // Set the reference to null so isAdAvailable() returns false.
-                    Log.d(LOG_TAG, "Ad dismissed fullscreen content.")
-                    appOpenAd = null
-                    isShowingAd = false
-
-                    onShowAdCompleteListener.onShowAdComplete()
-                    loadAd(this@SplashActivity)
-                }
-
-                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                    // Called when fullscreen content failed to show.
-                    // Set the reference to null so isAdAvailable() returns false.
-                    Log.d(LOG_TAG, adError.message)
-                    appOpenAd = null
-                    isShowingAd = false
-
-                    onShowAdCompleteListener.onShowAdComplete()
-                    loadAd(this@SplashActivity)
-                }
-
-                override fun onAdShowedFullScreenContent() {
-                    // Called when fullscreen content is shown.
-                    Log.d(LOG_TAG, "Ad showed fullscreen content.")
-                }
-            }
-            isShowingAd = true
-            appOpenAd?.show(this@SplashActivity)
-        }
-        catch (exception:Exception){
-
-            //checking the exception that is thrown if the Ad is not shown because here this Ad will be always visible
-            Log.d( "showAdIfAvailable: ",exception.message.toString())
-        }
-    }
-
-    private fun wasLoadTimeLessThanNHoursAgo(numHours: Long): Boolean {
-        val dateDifference: Long = Date().time - loadTime
-        val numMilliSecondsPerHour: Long = 3600000
-        return dateDifference < numMilliSecondsPerHour * numHours
-    }
-
+    @SuppressLint("NewApi")
     private fun checkForInternet(context: Context): Boolean {
 
         // register activity with the connectivity manager service

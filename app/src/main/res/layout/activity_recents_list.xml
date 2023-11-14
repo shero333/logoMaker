@@ -86,7 +86,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/recents_list_card"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:padding="5dp"
         app:cardCornerRadius="3dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +125,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/yesterday_list_card"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:padding="5dp"
         app:cardCornerRadius="3dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +171,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/before_yesterday_card"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:padding="5dp"
         app:cardCornerRadius="3dp"
         app:layout_constraintEnd_toEndOf="parent"

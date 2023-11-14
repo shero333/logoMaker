@@ -2,6 +2,7 @@ package com.esport.logo.maker.unlimited.main.recent_work
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -91,7 +92,6 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
         interstitialAd!!.setListener(this)
 
         //initialization of ViewModel
-
 
         //Creating banner for AppLovin
         BannerAdAppLovinTop()
@@ -214,51 +214,6 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
             }
         }
 
-        //back pressed button
-        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-
-                if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
-
-                    //No Ad
-                    //finish this activity
-                    finish()
-                }
-                else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
-
-                    //AdMob Ad
-                    if (mInterstitialAd != null) {
-                        mInterstitialAd!!.show(this@RecentListActivity)
-
-                        mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
-                            override fun onAdDismissedFullScreenContent() {
-                                super.onAdDismissedFullScreenContent()
-
-                                setAd()
-                                //finish this activity
-                                finish()
-                            }
-                        }
-                    }
-                    else{
-                        setAd()
-                        //finish this activity
-                        finish()
-                    }
-                }
-                else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
-
-                    //AppLovin interstitial
-                    if(interstitialAd!!.isReady)
-                        interstitialAd!!.showAd()
-                    else{
-                        //finish this activity
-                        finish()
-                    }
-                }
-            }
-        })
-
         //adapters
         recentListAdapter = RecentListAdapter(this)
         yesterdayListAdapter = YesterdayListAdapter(this)
@@ -344,55 +299,114 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                 binding.beforeYesterdayCard.visibility = View.GONE
             }
         }
+
+        //back pressed button
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                if (supportFragmentManager.fragments.isNotEmpty()){
+                    //finish this fragment
+                    MainUtils.finishFragment(supportFragmentManager,previewFragment)
+                }
+                else{
+                    if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
+
+                        //No Ad
+                        //finish this activity
+                        finish()
+                    }
+                    else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
+
+                        //AdMob Ad
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd!!.show(this@RecentListActivity)
+
+                            mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
+                                override fun onAdDismissedFullScreenContent() {
+                                    super.onAdDismissedFullScreenContent()
+
+                                    setAd()
+                                    //finish this activity
+                                    finish()
+                                }
+                            }
+                        }
+                        else{
+                            setAd()
+                            //finish this activity
+                            finish()
+                        }
+                    }
+                    else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
+
+                        //AppLovin interstitial
+                        if(interstitialAd!!.isReady)
+                            interstitialAd!!.showAd()
+                        else{
+                            //finish this activity
+                            finish()
+                        }
+                    }
+                    else{
+                        finish()
+                    }
+                }
+            }
+        })
     }
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
 
-        if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
-
-            //No Ad
-            //finish this activity
-            finish()
+        if (supportFragmentManager.fragments.isNotEmpty()){
+            //finish this fragment
+            MainUtils.finishFragment(supportFragmentManager,previewFragment)
         }
-        else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
+        else{
+            if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "0"){
 
-            //AdMob Ad
-            if (mInterstitialAd != null) {
-                mInterstitialAd!!.show(this@RecentListActivity)
+                //No Ad
+                //finish this activity
+                finish()
+            }
+            else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "1"){
 
-                mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
-                    override fun onAdDismissedFullScreenContent() {
-                        super.onAdDismissedFullScreenContent()
+                //AdMob Ad
+                if (mInterstitialAd != null) {
+                    mInterstitialAd!!.show(this@RecentListActivity)
 
-                        setAd()
-                        //finish this activity
-                        finish()
+                    mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback(){
+                        override fun onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent()
+
+                            setAd()
+                            //finish this activity
+                            finish()
+                        }
                     }
+                }
+                else{
+                    setAd()
+                    //finish this activity
+                    finish()
+                }
+            }
+            else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
+
+                //AppLovin interstitial
+                if(interstitialAd!!.isReady)
+                    interstitialAd!!.showAd()
+                else{
+                    //finish this activity
+                    finish()
                 }
             }
             else{
-                setAd()
-                //finish this activity
                 finish()
             }
-        }
-        else if (LogoMakerApp.PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL == "2"){
-
-            //AppLovin interstitial
-            if(interstitialAd!!.isReady)
-                interstitialAd!!.showAd()
-            else{
-                //finish this activity
-                finish()
-            }
-        }
-        else{
-            finish()
         }
     }
-
     private fun getTheListFromRecentInPreference(): ArrayList<SavedLogo> {
 
         //get the array string from the preference
@@ -405,21 +419,21 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
 
         return savedLogos
     }
-
     //recent listItem click
     override fun recentListItemClick(recentLogo: SavedLogo) {
 
         recentClicked = true
         this.recentLogo = recentLogo
 
+        val bundle = Bundle()
+        bundle.putSerializable("logoClicked",recentLogo)
+        bundle.putString("typeLogo","recent")
+        previewFragment.arguments = bundle
+
         if (LogoMakerApp.RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "0"){
 
             //no Ad
             //navigate to the preview fragment
-            val bundle = Bundle()
-            bundle.putSerializable("logoClicked",recentLogo)
-            bundle.putString("typeLogo","recent")
-            previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
         }
         else if (LogoMakerApp.RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "1"){
@@ -434,22 +448,18 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                         super.onAdDismissedFullScreenContent()
 
                         setAd()
-                        //navigate to the preview fragment
-                        val bundle = Bundle()
-                        bundle.putSerializable("logoClicked",recentLogo)
-                        bundle.putString("typeLogo","recent")
-                        previewFragment.arguments = bundle
-                        MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
                     }
                 }
+
+                Handler().postDelayed({
+                    //navigate to the preview fragment
+                    MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
+                },300)
+
             }
             else{
                 setAd()
                 //navigate to the preview fragment
-                val bundle = Bundle()
-                bundle.putSerializable("logoClicked",recentLogo)
-                bundle.putString("typeLogo","recent")
-                previewFragment.arguments = bundle
                 MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
             }
 
@@ -462,37 +472,29 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
             else{
 
                 //navigate to the preview fragment
-                val bundle = Bundle()
-                bundle.putSerializable("logoClicked",recentLogo)
-                bundle.putString("typeLogo","recent")
-                previewFragment.arguments = bundle
                 MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
             }
         }
         else{
             //navigate to the preview fragment
-            val bundle = Bundle()
-            bundle.putSerializable("logoClicked",recentLogo)
-            bundle.putString("typeLogo","recent")
-            previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
         }
     }
-
     //yesterday listItem click
     override fun yesterdayListItemClick(yesterdayLogo: SavedLogo) {
 
         yesterdayClicked = true
         this.yesterdayLogo = yesterdayLogo
 
+        val bundle = Bundle()
+        bundle.putSerializable("logoClicked",yesterdayLogo)
+        bundle.putString("typeLogo","yesterday")
+        previewFragment.arguments = bundle
+
         if (LogoMakerApp.RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "0"){
 
             //no Ad
             //navigate to the preview fragment
-            val bundle = Bundle()
-            bundle.putSerializable("logoClicked",yesterdayLogo)
-            bundle.putString("typeLogo","yesterday")
-            previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
         }
         else if (LogoMakerApp.RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "1"){
@@ -507,22 +509,17 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                         super.onAdDismissedFullScreenContent()
 
                         setAd()
-                        //navigate to the preview fragment
-                        val bundle = Bundle()
-                        bundle.putSerializable("logoClicked",yesterdayLogo)
-                        bundle.putString("typeLogo","yesterday")
-                        previewFragment.arguments = bundle
-                        MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
                     }
                 }
+
+                Handler().postDelayed({
+                    //navigate to the preview fragment
+                    MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
+                },300)
             }
             else{
                 setAd()
                 //navigate to the preview fragment
-                val bundle = Bundle()
-                bundle.putSerializable("logoClicked",yesterdayLogo)
-                bundle.putString("typeLogo","yesterday")
-                previewFragment.arguments = bundle
                 MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
             }
         }
@@ -533,36 +530,28 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                 interstitialAd!!.showAd()
             else{
                 //navigate to the preview fragment
-                val bundle = Bundle()
-                bundle.putSerializable("logoClicked",yesterdayLogo)
-                bundle.putString("typeLogo","yesterday")
-                previewFragment.arguments = bundle
                 MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
             }
         }
         else{
             //navigate to the preview fragment
-            val bundle = Bundle()
-            bundle.putSerializable("logoClicked",yesterdayLogo)
-            bundle.putString("typeLogo","yesterday")
-            previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
         }
     }
-
     override fun beforeYesterdayItemClick(beforeYesterdayLogo: SavedLogo) {
 
         beforeyesterdayClicked = true
         this.beforeYesterdayLogo = beforeYesterdayLogo
 
+        val bundle = Bundle()
+        bundle.putSerializable("logoClicked",beforeYesterdayLogo)
+        bundle.putString("typeLogo","beforeYesterday")
+        previewFragment.arguments = bundle
+
         if (LogoMakerApp.RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "0"){
 
             //No Ad
             //navigate to the preview fragment
-            val bundle = Bundle()
-            bundle.putSerializable("logoClicked",beforeYesterdayLogo)
-            bundle.putString("typeLogo","beforeYesterday")
-            previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
 
         }
@@ -578,16 +567,16 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                         super.onAdDismissedFullScreenContent()
 
                         setAd()
-                        //navigate to the preview fragment
-                        val bundle = Bundle()
-                        bundle.putSerializable("logoClicked",beforeYesterdayLogo)
-                        bundle.putString("typeLogo","beforeYesterday")
-                        previewFragment.arguments = bundle
-                        MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
                     }
                 }
+
+                Handler().postDelayed({
+                    //navigate to the preview fragment
+                    MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
+                },300)
             }
             else{
+
                 setAd()
                 //navigate to the preview fragment
                 val bundle = Bundle()
@@ -605,23 +594,14 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
                 interstitialAd!!.showAd()
             else{
                 //navigate to the preview fragment
-                val bundle = Bundle()
-                bundle.putSerializable("logoClicked",beforeYesterdayLogo)
-                bundle.putString("typeLogo","beforeYesterday")
-                previewFragment.arguments = bundle
                 MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
             }
         }
         else{
             //navigate to the preview fragment
-            val bundle = Bundle()
-            bundle.putSerializable("logoClicked",beforeYesterdayLogo)
-            bundle.putString("typeLogo","beforeYesterday")
-            previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
         }
     }
-
     override fun deletePreviewItemClicked(clickedLogo:SavedLogo,typeLogo:String) {
 
         //check from which list the entry should be deleted
@@ -682,6 +662,7 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
         interstitialAd!!.loadAd()
 
         if (recentClicked){
+
             recentClicked = false
             //navigate to the preview fragment
             val bundle = Bundle()
@@ -691,6 +672,7 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
         }
         else if (yesterdayClicked){
+
             yesterdayClicked = true
             //navigate to the preview fragment
             val bundle = Bundle()
@@ -708,20 +690,13 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
             bundle.putString("typeLogo","beforeYesterday")
             previewFragment.arguments = bundle
             MainUtils.replaceFragment(previewFragment,supportFragmentManager,container)
-
         }
     }
     override fun onAdClicked(p0: MaxAd?) {}
     override fun onAdLoadFailed(p0: String?, p1: MaxError?) {}
     override fun onAdDisplayFailed(p0: MaxAd?, p1: MaxError?) {}
-    override fun onAdExpanded(p0: MaxAd?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onAdCollapsed(p0: MaxAd?) {
-        TODO("Not yet implemented")
-    }
-
+    override fun onAdExpanded(p0: MaxAd?) {}
+    override fun onAdCollapsed(p0: MaxAd?) {}
     //Ads
     private fun Banner1Ads() {
         if (BuildConfig.DEBUG){
@@ -743,7 +718,6 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
             adView.loadAd(adRequest)
         }
     }
-
     private fun Banner2Ads() {
 
         if (BuildConfig.DEBUG){
@@ -765,7 +739,6 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
             adView.loadAd(adRequest)
         }
     }
-
     //Interstitial Ad
     private fun setAd() {
         if (BuildConfig.DEBUG){
@@ -815,7 +788,6 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
 
         binding.applovinAdView2.addView(adViewTop)
     }
-
     private fun BannerAdAppLovinBottom() {
 
         adViewBottom = MaxAdView(resources.getString(R.string.bannerAd), this)
@@ -827,7 +799,6 @@ class RecentListActivity : AppCompatActivity(), RecentListAdapter.RecentListItem
     }
 
     override fun backButtonClicked() {
-
         //finish this fragment
         MainUtils.finishFragment(supportFragmentManager,previewFragment)
     }

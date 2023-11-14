@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -155,11 +156,13 @@ class BackgroundFragment(var backgroundFragmentInterface: BackgroundFragmentInte
     private fun graphicsClick() {
 
         //setting visibility of views
-        binding.listLogos.visibility = View.INVISIBLE
+        binding.listLogos.visibility = View.VISIBLE
         binding.opacityProgress.visibility = View.GONE
         binding.opacityIcon.visibility = View.GONE
         binding.colorListRecyclerview.visibility = View.GONE
         binding.gradientBottomview.gradientBottomview.visibility = View.GONE
+        binding.colorOtherLayout.visibility = View.GONE
+
 
         ///graphics is selected
         viewModelMain.graphicsTabSelected = true
@@ -230,12 +233,14 @@ class BackgroundFragment(var backgroundFragmentInterface: BackgroundFragmentInte
     private fun textureClick() {
 
         //setting visibility of views
-        binding.listLogos.visibility = View.INVISIBLE
+        binding.listLogos.visibility = View.VISIBLE
         binding.opacityProgress.visibility = View.GONE
         binding.opacityIcon.visibility = View.GONE
         binding.colorListRecyclerview.visibility = View.GONE
 
         binding.gradientBottomview.gradientBottomview.visibility = View.GONE
+        binding.colorOtherLayout.visibility = View.GONE
+
 
         ///texture is selected
         viewModelMain.graphicsTabSelected = false
@@ -286,6 +291,10 @@ class BackgroundFragment(var backgroundFragmentInterface: BackgroundFragmentInte
         binding.opacityIcon.visibility = View.VISIBLE
         binding.colorListRecyclerview.visibility = View.VISIBLE
         binding.gradientBottomview.gradientBottomview.visibility = View.GONE
+        binding.colorOtherLayout.visibility = View.VISIBLE
+
+        binding.colorOtherLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.Black))
+
 
         ///color is selected
         viewModelMain.graphicsTabSelected = false
@@ -321,10 +330,8 @@ class BackgroundFragment(var backgroundFragmentInterface: BackgroundFragmentInte
 
         //setting visibility of views
         binding.listLogos.visibility = View.INVISIBLE
-        binding.opacityProgress.visibility = View.GONE
-        binding.opacityIcon.visibility = View.GONE
-        binding.colorListRecyclerview.visibility = View.GONE
         binding.gradientBottomview.gradientBottomview.visibility = View.GONE
+        binding.colorOtherLayout.visibility = View.GONE
 
         ///shapes is selected
         viewModelMain.graphicsTabSelected = false
@@ -373,7 +380,10 @@ class BackgroundFragment(var backgroundFragmentInterface: BackgroundFragmentInte
         binding.opacityProgress.visibility = View.VISIBLE
         binding.opacityIcon.visibility = View.VISIBLE
         binding.colorListRecyclerview.visibility = View.INVISIBLE
+        binding.colorOtherLayout.visibility = View.VISIBLE
         binding.gradientBottomview.gradientBottomview.visibility = View.VISIBLE
+
+        binding.colorOtherLayout.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.Black))
 
         ///graphics is selected
         viewModelMain.graphicsTabSelected = false

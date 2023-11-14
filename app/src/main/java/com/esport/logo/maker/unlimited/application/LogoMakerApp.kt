@@ -7,6 +7,8 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
@@ -16,6 +18,8 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.applovin.sdk.AppLovinSdk
 import com.esport.logo.maker.unlimited.BuildConfig
 import com.esport.logo.maker.unlimited.splash.SplashActivity
+import com.esport.logo.maker.unlimited.splash.SplashStart
+import com.esport.logo.maker.unlimited.utils.AppOpenAdManager
 import com.esport.logo.maker.unlimited.utils.MainUtils
 import com.esport.logo.maker.unlimited.utils.OnShowAdCompleteListener
 import com.google.android.gms.ads.AdError
@@ -30,11 +34,12 @@ import java.util.concurrent.Executor
 
 
 @HiltAndroidApp
-class LogoMakerApp : Application(),LifecycleObserver {
+class LogoMakerApp : Application(), LifecycleObserver {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var appContext: Context
+        lateinit var appOpenAdManager:AppOpenAdManager
 
         //ids {Debug}
         var BANNER_AD_ADMOB_ID_DEBUG: String = ""
@@ -72,8 +77,6 @@ class LogoMakerApp : Application(),LifecycleObserver {
         var MAINSCREEN_EDITLOGO_BUTTON_INTERSTITIAL: String = ""
         var MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL: String = ""
         var RECENTS_ACTIVITY_RECENTLIST_ITEM_CLICK_INTERSTITIAL: String = ""
-        var RECENTS_ACTIVITY_YESTERDAYLIST_ITEM_CLICK_INTERSTITIAL: String = ""
-        var RECENTS_ACTIVITY_DAYBEFORE_YESTERDAYLIST_ITEM_CLICK_INTERSTITIAL: String = ""
         var PREVIEW_ACTIVITY_BACK_BUTTON_PRESS_CLICK_BUTTON_INTERSTITIAL: String = ""
         var CREATE_LOGO_SCREEN_BACK_BUTTON_PRESS_INTERSTITIAL: String = ""
         var CREATE_LOGO_SCREEN_DOWNLOAD_BUTTON_PRESS_INTERSTITIAL: String = ""
@@ -84,12 +87,6 @@ class LogoMakerApp : Application(),LifecycleObserver {
     }
 
     private lateinit var currentActivity: Activity
-
-    private var appOpenAd: AppOpenAd? = null
-    private var isLoadingAd = false
-    var isShowingAd = false
-    private val LOG_TAG = "AppOpenAdManager"
-    private var loadTime: Long = 0
 
     override fun onCreate() {
         super.onCreate()
@@ -102,22 +99,29 @@ class LogoMakerApp : Application(),LifecycleObserver {
         AppLovinSdk.getInstance(this).mediationProvider = "max"
         AppLovinSdk.getInstance(this).initializeSdk {}
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        loadAd(appContext)
+        appOpenAdManager = AppOpenAdManager()
+
+        Handler().postDelayed(
+            {
+                ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+                appOpenAdManager.loadAd(this)
+            },
+            4500
+        ) // 4500 milliseconds = 4.5 seconds because of delay due to firebase
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if (activity is SplashActivity){
-                    //Fetching ids
                     MainUtils.fetchIdsOfAds()
                 }
             }
+
             override fun onActivityStarted(activity: Activity) {
-                if (!isShowingAd) {
+                if (!appOpenAdManager.isShowingAd) {
                     currentActivity = activity
-                    loadAd(appContext)
                 }
             }
+
             override fun onActivityResumed(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
             override fun onActivityStopped(activity: Activity) {}
@@ -131,146 +135,21 @@ class LogoMakerApp : Application(),LifecycleObserver {
         // Show the ad (if available) when the app moves to foreground.
         Log.d("here", "here")
 
-        //Handler
-        Handler().postDelayed({
+        when (SPLASH_OPENAD_AGREE_BUTTON) {
 
-            when(SPLASH_OPENAD_AGREE_BUTTON){
-
-                "0"->{
-                    //no ad
-                }
-                "1"->{
-                    showAdIfAvailable(object:OnShowAdCompleteListener{
-                        override fun onShowAdComplete() {
-
-                            //nothing just show ad
-                        }
-                    })
-                }
+            "0" -> {
+                //no ad
             }
 
-        },500)
-    }
+            "1" -> {
+                appOpenAdManager.showAdIfAvailable(currentActivity,object : OnShowAdCompleteListener {
+                    override fun onShowAdComplete() {
 
-    /** Request an ad. */
-    fun loadAd(context: Context) {
-
-        if (BuildConfig.DEBUG){
-            // Do not load ad if there is an unused ad or one is already loading.
-            if (isLoadingAd || isAdAvailable()) {
-                return
-            }
-
-            isLoadingAd = true
-            val request = AdRequest.Builder().build()
-
-            AppOpenAd.load(context, OPEN_AD_ADMOB_ID_DEBUG,
-                request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-
-                object : AppOpenAd.AppOpenAdLoadCallback() {
-
-                    override fun onAdLoaded(ad: AppOpenAd) {
-                        // Called when an app open ad has loaded.
-                        Log.d(LOG_TAG, "Ad was loaded.")
-                        appOpenAd = ad
-                        isLoadingAd = false
-                        loadTime = Date().time
-                    }
-
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        // Called when an app open ad has failed to load.
-                        Log.d(LOG_TAG, loadAdError.message)
-                        isLoadingAd = false;
-                        loadAd(appContext)
+                        //nothing just show ad
                     }
                 })
-        }
-        else{
-            // Do not load ad if there is an unused ad or one is already loading.
-            if (isLoadingAd || isAdAvailable()) {
-                return
-            }
-
-            isLoadingAd = true
-            val request = AdRequest.Builder().build()
-
-            AppOpenAd.load(context, LogoMakerApp.OPEN_AD_ADMOB_ID_RELEASE,
-                request,
-                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-
-                object : AppOpenAd.AppOpenAdLoadCallback() {
-
-                    override fun onAdLoaded(ad: AppOpenAd) {
-                        // Called when an app open ad has loaded.
-                        Log.d(LOG_TAG, "Ad was loaded.")
-                        appOpenAd = ad
-                        isLoadingAd = false
-                        loadTime = Date().time
-                    }
-
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        // Called when an app open ad has failed to load.
-                        Log.d(LOG_TAG, loadAdError.message)
-                        isLoadingAd = false;
-                    }
-                })
-        }
-    }
-    /** Check if ad exists and can be shown. */
-    private fun isAdAvailable(): Boolean {
-        return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4)
-    }
-    /** Shows the ad if one isn't already showing. */
-    private fun showAdIfAvailable(onShowAdCompleteListener: OnShowAdCompleteListener) {
-        // If the app open ad is already showing, do not show the ad again.
-        if (isShowingAd) {
-            Log.d(LOG_TAG, "The app open ad is already showing.")
-            return
-        }
-
-        // If the app open ad is not available yet, invoke the callback then load the ad.
-        if (!isAdAvailable()) {
-            Log.d(LOG_TAG, "The app open ad is not ready yet.")
-            onShowAdCompleteListener.onShowAdComplete()
-            loadAd(appContext)
-            return
-        }
-
-        appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-
-            override fun onAdDismissedFullScreenContent() {
-                // Called when full screen content is dismissed.
-                // Set the reference to null so isAdAvailable() returns false.
-                Log.d(LOG_TAG, "Ad dismissed fullscreen content.")
-                appOpenAd = null
-                isShowingAd = false
-
-                onShowAdCompleteListener.onShowAdComplete()
-                loadAd(appContext)
-            }
-
-            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                // Called when fullscreen content failed to show.
-                // Set the reference to null so isAdAvailable() returns false.
-                Log.d(LOG_TAG, adError.message)
-                appOpenAd = null
-                isShowingAd = false
-
-                onShowAdCompleteListener.onShowAdComplete()
-                loadAd(appContext)
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                // Called when fullscreen content is shown.
-                Log.d(LOG_TAG, "Ad showed fullscreen content.")
             }
         }
-        isShowingAd = true
-        appOpenAd?.show(currentActivity)
     }
-    private fun wasLoadTimeLessThanNHoursAgo(numHours: Long): Boolean {
-        val dateDifference: Long = Date().time - loadTime
-        val numMilliSecondsPerHour: Long = 3600000
-        return dateDifference < numMilliSecondsPerHour * numHours
-    }
+
 }

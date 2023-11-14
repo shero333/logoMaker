@@ -1,9 +1,15 @@
 package com.esport.logo.maker.unlimited.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +81,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
     private var itemRecentsClicked = false
     private lateinit var adViewTop: MaxAdView
     private lateinit var adViewBottom: MaxAdView
-    private lateinit var exitFragment:ExitFragment
+    private lateinit var exitFragment: ExitFragment
     private val MAIL_OR_PLAY_STORE_INTENT_REQ_CODE = 200
 
     @SuppressLint("NewApi")
@@ -135,6 +141,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
 
                 bindingMain.logoText.layoutParams = params
             }
+
             "1" -> {
 
                 //Admob Ad will be loaded
@@ -148,6 +155,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 Banner2Ads()
 
             }
+
             "2" -> {
 
                 //load AppLovin Banner Ads
@@ -167,6 +175,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.applovinAdView1.visibility = View.GONE
 
             }
+
             "1" -> {
 
                 //Admob Ad will be loaded
@@ -180,6 +189,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 Banner2Ads()
 
             }
+
             "2" -> {
 
                 //load AppLovin Banner Ads
@@ -200,21 +210,24 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.adTemplate.visibility = View.GONE
                 bindingMain.appLovinNativeAdView.visibility = View.GONE
             }
+
             "1" -> {
 
                 bindingMain.adTemplate.visibility = View.VISIBLE
-                bindingMain.appLovinNativeAdView.visibility = View.INVISIBLE
+                bindingMain.appLovinNativeAdView.visibility = View.GONE
 
                 if (BuildConfig.DEBUG) {
                     //native ads show AdMob
                     adloader = AdLoader.Builder(this, LogoMakerApp.NATIVE_AD_ADMOB_ID_DEBUG)
                         .forNativeAd { nativeAd: NativeAd? ->
+
                             template.setStyles(NativeTemplateStyle.Builder().build())
                             template.setNativeAd(nativeAd)
                         }
                         .build()
 
                     adloader.loadAd(AdRequest.Builder().build())
+
                 } else {
                     //native ads show AdMob
                     adloader = AdLoader.Builder(this, LogoMakerApp.NATIVE_AD_ADMOB_ID_RELEASE)
@@ -228,6 +241,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 }
 
             }
+
             "2" -> {
                 bindingMain.adTemplate.visibility = View.INVISIBLE
                 bindingMain.appLovinNativeAdView.visibility = View.VISIBLE
@@ -320,7 +334,8 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 if (mInterstitialAd != null) {
                     mInterstitialAd!!.show(this)
 
-                    mInterstitialAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    mInterstitialAd!!.fullScreenContentCallback =
+                        object : FullScreenContentCallback() {
 
                             override fun onAdDismissedFullScreenContent() {
                                 super.onAdDismissedFullScreenContent()
@@ -335,8 +350,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                                 startActivity(intent)
                             }
                         }
-                }
-                else {
+                } else {
                     setAd()
                     //template of logo flow
                     val intent = Intent(this@ActivityMain, CreateOrEditTemplateActivity::class.java)
@@ -365,7 +379,8 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
         }
 
         //recycler view
-        bindingMain.recentsList.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+        bindingMain.recentsList.layoutManager =
+            GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
         bindingMain.recentsList.setHasFixedSize(true)
         bindingMain.recentsList.adapter = adapterRecentList
 
@@ -416,8 +431,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.headingListRecent.visibility = View.GONE
                 bindingMain.recentsListCard.visibility = View.GONE
             }
-        }
-        else {
+        } else {
             bindingMain.headingListRecent.visibility = View.GONE
             bindingMain.recentsListCard.visibility = View.GONE
         }
@@ -432,10 +446,59 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.headingListRecent.visibility = View.GONE
 
                 //calling the exit fragment
-                MainUtils.replaceFragment(exitFragment, supportFragmentManager, R.id.container_fragment_exit_activity_main)
+                MainUtils.replaceFragment(
+                    exitFragment,
+                    supportFragmentManager,
+                    R.id.container_fragment_exit_activity_main
+                )
 
             }
         })
+
+        //runtime 1st check if the connection is available then the call will be sent if not then the button will be visible
+        if (checkForInternet(this)) {
+            bindingMain.adTemplate.visibility = View.VISIBLE
+            bindingMain.appLovinNativeAdView.visibility = View.VISIBLE
+        }
+        else {
+            bindingMain.adTemplate.visibility = View.GONE
+            bindingMain.appLovinNativeAdView.visibility = View.GONE
+        }
+
+
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+            .build()
+
+        //this callback is for runtime check that whether the internet is connection is available or not!
+        val networkCallback = object : ConnectivityManager.NetworkCallback() {
+            // network is available for use
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+
+                runOnUiThread {
+                    //loading banner ads according to the firebase
+                    bindingMain.adTemplate.visibility = View.VISIBLE
+                    bindingMain.appLovinNativeAdView.visibility = View.VISIBLE
+                }
+            }
+
+            // lost network connection
+            override fun onLost(network: Network) {
+                super.onLost(network)
+
+                runOnUiThread {
+                    //loading banner ads according to the firebase
+                    bindingMain.adTemplate.visibility = View.GONE
+                    bindingMain.appLovinNativeAdView.visibility = View.GONE
+                }
+            }
+        }
+
+        val connectivityManager = getSystemService(ConnectivityManager::class.java) as ConnectivityManager
+        connectivityManager.requestNetwork(networkRequest, networkCallback)
     }
 
     @SuppressLint("NewApi")
@@ -443,7 +506,8 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
         super.onResume()
 
         //recycler view
-        bindingMain.recentsList.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
+        bindingMain.recentsList.layoutManager =
+            GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false)
         bindingMain.recentsList.setHasFixedSize(true)
         bindingMain.recentsList.adapter = adapterRecentList
 
@@ -489,13 +553,11 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.recentsListCard.visibility = View.VISIBLE
                 bindingMain.headingListRecent.visibility = View.VISIBLE
                 adapterRecentList.setRecentLogosList(recentLogos)
-            }
-            else {
+            } else {
                 bindingMain.recentsListCard.visibility = View.GONE
                 bindingMain.headingListRecent.visibility = View.GONE
             }
-        }
-        else {
+        } else {
             bindingMain.recentsListCard.visibility = View.GONE
             bindingMain.headingListRecent.visibility = View.GONE
         }
@@ -525,6 +587,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
 
                 bindingMain.logoText.layoutParams = params
             }
+
             "1" -> {
 
                 //Admob Ad will be loaded
@@ -538,6 +601,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 Banner2Ads()
 
             }
+
             "2" -> {
 
                 //load AppLovin Banner Ads
@@ -557,6 +621,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.applovinAdView1.visibility = View.GONE
 
             }
+
             "1" -> {
 
                 //Admob Ad will be loaded
@@ -570,6 +635,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 Banner2Ads()
 
             }
+
             "2" -> {
 
                 //load AppLovin Banner Ads
@@ -656,8 +722,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 bindingMain.recentsListCard.visibility = View.GONE
                 bindingMain.headingListRecent.visibility = View.GONE
             }
-        }
-        else {
+        } else {
             bindingMain.recentsListCard.visibility = View.GONE
             bindingMain.headingListRecent.visibility = View.GONE
         }
@@ -669,7 +734,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
         val recentString = SharedPreference.downloadedLogos
         var savedLogos = ArrayList<SavedLogo>()
 
-        if (recentString!= null && recentString.isNotEmpty()){
+        if (recentString != null && recentString.isNotEmpty()) {
             val typeData: Type = object : TypeToken<ArrayList<SavedLogo>>() {}.type
 
             savedLogos = Gson().fromJson(recentString, typeData)
@@ -684,7 +749,6 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
         itemRecentsClicked = true
 
         if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "0") {
-
             //no ad
             //navigate to the activity
             startActivity(Intent(this@ActivityMain, RecentListActivity::class.java))
@@ -710,8 +774,7 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
                 //navigate to the activity
                 startActivity(Intent(this@ActivityMain, RecentListActivity::class.java))
             }
-        }
-        else if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "2") {
+        } else if (LogoMakerApp.MAINSCREEN_RECENTLIST_ITEM_CLICK_INTERSTITIAL == "2") {
 
             //loading Ad AppLovin interstitial
             //Applovin Ad
@@ -893,39 +956,70 @@ class ActivityMain : AppCompatActivity(), RecentMainListAdapter.RecentItemClicke
 
         return MaxNativeAdView(binder, this)
     }
+
     private fun createNativeAdLoader() {
 
-            nativeAdContainerView = bindingMain.appLovinNativeAdView
-            nativeAdLoader = MaxNativeAdLoader(resources.getString(R.string.nativeAd), this)
-            nativeAdLoader!!.setRevenueListener(this)
+        nativeAdContainerView = bindingMain.appLovinNativeAdView
+        nativeAdLoader = MaxNativeAdLoader(resources.getString(R.string.nativeAd), this)
+        nativeAdLoader!!.setRevenueListener(this)
 
-            //loading Ad
-            nativeAdLoader!!.loadAd(createNativeAdView())
+        //loading Ad
+        nativeAdLoader!!.loadAd(createNativeAdView())
 
-            nativeAdLoader!!.setNativeAdListener(object : MaxNativeAdListener() {
-                override fun onNativeAdLoaded(nativeAdView: MaxNativeAdView?, nativeAd: MaxAd?) {
-                    super.onNativeAdLoaded(nativeAdView, nativeAd)
+        nativeAdLoader!!.setNativeAdListener(object : MaxNativeAdListener() {
+            override fun onNativeAdLoaded(nativeAdView: MaxNativeAdView?, nativeAd: MaxAd?) {
+                super.onNativeAdLoaded(nativeAdView, nativeAd)
 
-                    // Clean up any pre-existing native ad to prevent memory leaks.
-                    if (loadedNativeAd != null) {
-                        nativeAdLoader!!.destroy(loadedNativeAd)
-                    }
-
-                    Log.d("NativeApplovin", "onNativeAdLoaded: ${nativeAd.toString()}")
-
-                    loadedNativeAd = nativeAd
-
-                    nativeAdContainerView.removeAllViews()
-                    nativeAdContainerView.addView(nativeAdView)
+                // Clean up any pre-existing native ad to prevent memory leaks.
+                if (loadedNativeAd != null) {
+                    nativeAdLoader!!.destroy(loadedNativeAd)
                 }
-                override fun onNativeAdLoadFailed(p0: String?, p1: MaxError?) {
-                    super.onNativeAdLoadFailed(p0, p1)
-                    Log.d("NativeAppLovin", "onNativeAdFailed: " + p1?.message.toString())
 
-                }
-                override fun onNativeAdClicked(p0: MaxAd?) {
-                    super.onNativeAdClicked(p0)
-                }
-            })
+                Log.d("NativeApplovin", "onNativeAdLoaded: ${nativeAd.toString()}")
+
+                loadedNativeAd = nativeAd
+
+                nativeAdContainerView.removeAllViews()
+                nativeAdContainerView.addView(nativeAdView)
+            }
+
+            override fun onNativeAdLoadFailed(p0: String?, p1: MaxError?) {
+                super.onNativeAdLoadFailed(p0, p1)
+                Log.d("NativeAppLovin", "onNativeAdFailed: " + p1?.message.toString())
+
+            }
+
+            override fun onNativeAdClicked(p0: MaxAd?) {
+                super.onNativeAdClicked(p0)
+            }
+        })
+    }
+
+    @SuppressLint("NewApi")
+    private fun checkForInternet(context: Context): Boolean {
+
+        // register activity with the connectivity manager service
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        // Returns a Network object corresponding to
+        // the currently active default data network.
+        val network = connectivityManager.activeNetwork ?: return false
+
+        // Representation of the capabilities of an active network.
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return when {
+            // Indicates this network uses a Wi-Fi transport,
+            // or WiFi has network connectivity
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+            // Indicates this network uses a Cellular transport. or
+            // Cellular has network connectivity
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+            // else return false
+            else -> false
+        }
     }
 }
